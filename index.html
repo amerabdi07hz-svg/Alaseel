@@ -1671,11 +1671,21 @@ function Backup() {
 function Profile() {
   const { session, setSession, users, persist, toast, currentRole } = useApp();
   const [name, setName] = useState(session.name);
+  const [username, setUsername] = useState(session.username);
   const [cur, setCur] = useState(""); const [np, setNp] = useState(""); const [np2, setNp2] = useState("");
 
   const saveName = () => {
     persist.users(users.map((u) => u.id === session.id ? { ...u, name } : u));
     setSession({ ...session, name }); toast("تم تحديث الاسم");
+  };
+  const saveUsername = () => {
+    const trimmed = username.trim().toLowerCase();
+    if (!trimmed) return toast("اسم المستخدم مطلوب", "error");
+    if (trimmed.length < 3) return toast("اسم المستخدم قصير جداً", "error");
+    if (users.some((u) => u.id !== session.id && u.username.toLowerCase() === trimmed))
+      return toast("اسم المستخدم مستخدم بالفعل", "error");
+    persist.users(users.map((u) => u.id === session.id ? { ...u, username: trimmed } : u));
+    setSession({ ...session, username: trimmed }); toast("تم تحديث اسم المستخدم");
   };
   const changePwd = () => {
     const me = users.find((u) => u.id === session.id);
@@ -1710,11 +1720,14 @@ function Profile() {
           </div>
         </div>
         <Field label="الاسم"><input className="input" value={name} onChange={(e) => setName(e.target.value)} /></Field>
+        <Field label="اسم المستخدم"><input className="input" value={username} onChange={(e) => setUsername(e.target.value)} /></Field>
         <div style={{ margin: "12px 0", fontSize: 13, color: "var(--muted)" }}>
-          <div>اسم المستخدم: <b style={{ color: "var(--text)" }}>{session.username}</b></div>
           <div>آخر تسجيل دخول: <b style={{ color: "var(--text)" }}>{fmtDate(session.lastLogin)}</b></div>
         </div>
-        <button className="btn btn-primary" onClick={saveName}><Save size={16} /> حفظ الاسم</button>
+        <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+          <button className="btn btn-primary" onClick={saveName}><Save size={16} /> حفظ الاسم</button>
+          <button className="btn btn-ghost" onClick={saveUsername}><Save size={16} /> حفظ اسم المستخدم</button>
+        </div>
       </div>
 
       <div className="card" style={{ padding: 24 }}>
