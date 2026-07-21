@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Cairo:wght@600;700;800&display=swap');
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Tajawal', system-ui, sans-serif;
+}
+
+/* شاشة التحميل (Boot) */
+#boot {
+  position: fixed; inset: 0; display: grid; place-items: center; background: #eef1f7;
+  z-index: 9999; color: #283D74; text-align: center;
+}
+#boot .badge {
+  width: 64px; height: 64px; border-radius: 16px; background: #283D74; color: #fff;
+  display: flex; align-items: center; justify-content: center; font-size: 36px; font-weight: bold; margin: 0 auto 16px;
+}
+#boot .spin {
+  width: 26px; height: 26px; border: 3px solid #D1D3D4; border-top-color: #283D74;
+  border-radius: 50%; animation: sp .8s linear infinite; margin: 14px auto 0;
+}
+@keyframes sp { to { transform: rotate(360deg); } }
+#boot .err {
+  color: #e5484d; font-weight: 700; max-width: 340px; line-height: 1.7; font-size: 14px; margin-top: 14px;
+}
+
+/* المتغيرات وتنسيقات النظام العامة */
+.app-root {
+  --brand: #283D74; --brand-l: #3C4F81; --grey: #D1D3D4;
+  --bg: #eef1f7; --surface: #ffffff; --surface-2: #f7f9fc; --line: #e3e7f0;
+  --text: #1b2439; --muted: #6b7490; --shadow: 0 1px 3px rgba(20,30,60,.08),0 8px 24px rgba(20,30,60,.06);
+  font-family: 'Tajawal', sans-serif; color: var(--text); min-height: 100vh; background: var(--bg);
+  overflow-x: hidden;
+}
+.app-root[data-theme="dark"] {
+  --bg: #0f1524; --surface: #182033; --surface-2: #1f2942; --line: #2a3550;
+  --text: #e8ecf6; --muted: #9aa4c0; --shadow: 0 1px 3px rgba(0,0,0,.4),0 8px 28px rgba(0,0,0,.35);
+  --brand: #5b74b8; --brand-l: #6f88cc;
+}
+.app-root * { box-sizing: border-box; }
+.heading { font-family: 'Cairo', sans-serif; }
+
+/* الأزرار */
+.btn {
+  display: inline-flex; align-items: center; gap: 6px; border: none; border-radius: 10px;
+  padding: 9px 14px; font-family: inherit; font-weight: 700; font-size: 13px;
+  cursor: pointer; transition: .15s; white-space: nowrap; flex-shrink: 0;
+}
+.btn:focus-visible { outline: 3px solid var(--brand-l); outline-offset: 2px; }
+.btn-primary { background: var(--brand); color: #fff; }
+.btn-primary:hover { background: var(--brand-l); }
+.btn-ghost { background: var(--surface-2); color: var(--text); border: 1px solid var(--line); }
+.btn-ghost:hover { border-color: var(--brand); }
+.btn-danger { background: #e5484d; color: #fff; }
+.btn-danger:hover { background: #c93b40; }
+.btn-sm { padding: 6px 9px; font-size: 12px; border-radius: 8px; }
+
+.icon-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px; border-radius: 9px; border: 1px solid var(--line);
+  background: var(--surface-2); color: var(--muted); cursor: pointer; transition: .15s;
+  flex-shrink: 0; flex-grow: 0; padding: 0; vertical-align: middle;
+}
+.icon-btn:hover { color: var(--brand); border-color: var(--brand); }
+.icon-btn svg { display: block; flex-shrink: 0; flex-grow: 0; }
+
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; box-shadow: var(--shadow); }
+
+/* المدخلات */
+.input, .select, textarea.input {
+  width: 100%; background: var(--surface-2); border: 1px solid var(--line); border-radius: 10px;
+  padding: 10px 12px; font-family: inherit; font-size: 14px; color: var(--text); transition: .15s;
+}
+.input:focus, .select:focus, textarea.input:focus { outline: none; border-color: var(--brand); background: var(--surface); }
+.label { font-size: 12.5px; font-weight: 700; color: var(--muted); margin-bottom: 6px; display: block; }
+
+/* الجداول */
+table { width: 100%; border-collapse: collapse; font-size: 13.5px; table-layout: auto; }
+thead th { text-align: right; font-weight: 800; color: var(--muted); padding: 12px 14px; border-bottom: 2px solid var(--line); cursor: pointer; user-select: none; white-space: nowrap; font-size: 12.5px; }
+thead th.no-sort { cursor: default; }
+tbody td { padding: 12px 14px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+tbody tr:hover { background: var(--surface-2); }
+
+.badge { display: inline-block; padding: 3px 10px; border-radius: 99px; font-size: 11.5px; font-weight: 700; }
+.scroll-x { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+/* النوافذ المنبثقة */
+.modal-back { position: fixed; inset: 0; background: rgba(10,15,30,.55); backdrop-filter: blur(3px); display: grid; place-items: center; z-index: 80; padding: 16px; }
+.modal { width: 100%; max-width: 560px; max-height: 90vh; overflow: auto; animation: pop .18s ease; }
+@keyframes pop { from { transform: translateY(12px) scale(.98); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes slidein { from { transform: translateX(-120%); opacity: 0; } to { transform: none; opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { * { animation: none!important; transition: none!important; } }
+
+/* الشبكات (Grids) */
+.grid-stats { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+@media (max-width: 520px) { .grid-stats { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 360px) { .grid-stats { grid-template-columns: 1fr; } }
+
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 560px) { .grid2 { grid-template-columns: 1fr; } }
+
+/* القائمة الجانبية */
+.sidebar-link {
+  display: flex; align-items: center; gap: 11px; padding: 11px 14px; border-radius: 11px;
+  color: var(--muted); font-weight: 700; font-size: 14px; cursor: pointer; transition: .15s;
+  border: none; background: none; width: 100%; text-align: right; font-family: inherit;
+  overflow: hidden; white-space: nowrap;
+}
+.sidebar-link:hover { background: var(--surface-2); color: var(--text); }
+.sidebar-link.active { background: var(--brand); color: #fff; }
+.sidebar-link svg { flex-shrink: 0; display: block; }
+
+.toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; row-gap: 10px; }
+
+/* الطباعة */
+.print-area, .print-area * { visibility: visible; }
+@media print {
+  body * { visibility: hidden; }
+  .app-root { background: #fff; }
+  .no-print { display: none!important; }
+  .print-area { position: absolute; inset: 0; padding: 20px; }
+  .card { box-shadow: none; border: none; }
+  thead th { color: #000; cursor: default; }
+}
+
+@media (max-width: 520px) {
+  header .heading { font-size: 15px !important; }
+}
