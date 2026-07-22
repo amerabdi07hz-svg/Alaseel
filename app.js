@@ -706,7 +706,10 @@ function SupplierForm({ data, onSave, onClose }) {
    لوحة التحكم
    ============================================================ */
 function Dashboard() {
-  const { employees, customers, suppliers, mine } = useApp();
+  const { employees, customers, suppliers, mine, users, isAdmin } = useApp();
+  const [view, setView] = useState("main");
+  const [selectedUser, setSelectedUser] = useState(null);
+
   const myEmployees = useMemo(() => mine(employees), [employees, mine]);
   const myCustomers = useMemo(() => mine(customers), [customers, mine]);
   const mySuppliers = useMemo(() => mine(suppliers), [suppliers, mine]);
@@ -728,8 +731,9 @@ function Dashboard() {
     { name: "فواتير الموردين", value: totalSupplierInvoices },
   ];
 
-  const statCard = (icon, label, value, color, bg) => (
-    <div className="card" style={{ padding: 16, display: "flex", alignItems: "center", gap: 13 }}>
+  const statCard = (icon, label, value, color, bg, onClick) => (
+    <div className="card" style={{ padding: 16, display: "flex", alignItems: "center", gap: 13, cursor: onClick ? "pointer" : "default", transition: ".15s" }}
+      onClick={onClick} onMouseEnter={(e) => onClick && (e.currentTarget.style.borderColor = "var(--brand)")} onMouseLeave={(e) => onClick && (e.currentTarget.style.borderColor = "")}>
       <div style={{ width: 46, height: 46, borderRadius: 12, background: bg, color: color, display: "grid", placeItems: "center", flexShrink: 0 }}>{icon}</div>
       <div style={{ minWidth: 0 }}>
         <div style={{ fontSize: 12, color: "var(--muted)", fontWeight: 700, whiteSpace: "nowrap" }}>{label}</div>
@@ -738,10 +742,18 @@ function Dashboard() {
     </div>
   );
 
+  if (view === "employee-detail" && selectedUser) {
+    return <EmployeeDetailView user={selectedUser} onBack={() => setView("employees-list")} />;
+  }
+
+  if (view === "employees-list") {
+    return <EmployeesListView onSelect={(u) => { setSelectedUser(u); setView("employee-detail"); }} onBack={() => setView("main")} />;
+  }
+
   return (
     <div style={{ display: "grid", gap: 18 }}>
       <div className="grid-stats">
-        {statCard(<Users size={22} />, "عدد الموظفين", myEmployees.length, "#5b74b8", "#5b74b822")}
+        {statCard(<Users size={22} />, "عدد الموظفين", myEmployees.length, "#5b74b8", "#5b74b822", () => setView("employees-list"))}
         {statCard(<UserRound size={22} />, "عدد الزبائن", myCustomers.length, "#2e9e5b", "#2e9e5b22")}
         {statCard(<Truck size={22} />, "عدد الموردين", mySuppliers.length, "#d98324", "#d9832422")}
       </div>
@@ -760,6 +772,114 @@ function Dashboard() {
           <BarChart data={barData}><CartesianGrid strokeDasharray="3 3" stroke="var(--line)" /><XAxis dataKey="name" tick={{ fill: "var(--muted)", fontSize: 11 }} /><YAxis tick={{ fill: "var(--muted)", fontSize: 11 }} /><Tooltip contentStyle={{ direction: "rtl", background: "var(--surface)", border: "1px solid var(--line)", borderRadius: 10 }} /><Bar dataKey="value" fill={BRAND} radius={[8, 8, 0, 0]} /></BarChart>
         </ResponsiveContainer>
       </div>
+    </div>
+  );
+}
+
+/* ============================================================
+   صفحة قائمة الموظفين (من لوحة التحكم)
+   ============================================================ */
+function EmployeesListView({ onSelect, onBack }) {
+  const { employees, users } = useApp();
+
+  const employeeUsers = useMemo(() => {
+    const uniqueIds = [...new Set(employees.map((e) => e.createdBy).filter(Boolean))];
+    return uniqueIds.map((id) => {
+      const user = users.find((u) => u.id === id);
+      const empRecords = employees.filter((e) => e.createdBy === id);
+      const totalLabor = empRecords.reduce((a, e) => a + (Number(e.labor) || 0), 0);
+      const totalExp = empRecords.reduce((a, e) => a + (Number(e.salaryExp) || 0), 0);
+      const completedCount = empRecords.filter((e) => e.completed).length;
+      return { user, recordCount: empRecords.length, totalLabor, totalExp, completedCount };
+    }).filter((e) => e.user);
+  }, [employees, users]);
+
+  const columns = [
+    { key: "name", label: "اسم الموظف", render: (r) => <span style={{ fontWeight: 700 }}>{r.user.name}</span> },
+    { key: "recordCount", label: "عدد الأعمال", type: "num" },
+    { key: "totalLabor", label: "اجمالي اليد العاملة", type: "num", render: (r) => money(r.totalLabor) },
+    { key: "totalExp", label: "اجمالي المصروفات", type: "num", render: (r) => money(r.totalExp) },
+    { key: "completedCount", label: "تم التسديد", type: "num", render: (r) => <span style={{ color: "#2e9e5b", fontWeight: 700 }}>{r.completedCount} / {r.recordCount}</span> },
+    { key: "act", label: "عرض التفاصيل", noSort: true, render: (r) => (
+      <button className="btn btn-sm btn-primary" onClick={(e) => { e.stopPropagation(); onSelect(r.user); }}>
+        <Eye size={14} /> عرض الأعمال
+      </button>
+    ) },
+  ];
+
+  return (
+    <div>
+      <div className="no-print" style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
+        <button className="btn btn-ghost" onClick={onBack}><RotateCcw size={16} /> رجوع</button>
+        <h3 className="heading" style={{ margin: 0, fontSize: 17 }}>قائمة الموظفين</h3>
+      </div>
+      <DataTable columns={columns} rows={employeeUsers} emptyMsg="لا يوجد موظفون." />
+    </div>
+  );
+}
+
+/* ============================================================
+   صفحة تفاصيل أعمال موظف محدد
+   ============================================================ */
+function EmployeeDetailView({ user, onBack }) {
+  const { employees, isAdmin, persist, toast, log, users } = useApp();
+
+  const myRecords = useMemo(() => employees.filter((e) => e.createdBy === user.id), [employees, user]);
+  const totalLabor = myRecords.reduce((a, e) => a + (Number(e.labor) || 0), 0);
+  const totalExp = myRecords.reduce((a, e) => a + (Number(e.salaryExp) || 0), 0);
+  const completedCount = myRecords.filter((e) => e.completed).length;
+
+  const toggleCompleted = (row) => {
+    if (!isAdmin) return;
+    const newVal = !row.completed;
+    persist.employees(employees.map((e) => (e.id === row.id ? { ...e, completed: newVal } : e)));
+    log(newVal ? "تسديد" : "إلغاء تسديد", "موظف", row.workplace + " — " + user.name);
+    toast(newVal ? "تم التسديد ✓" : "تم إلغاء التسديد");
+  };
+
+  const columns = [
+    { key: "completed", label: "خالص", noSort: true, render: (r) => (
+      <span onClick={() => toggleCompleted(r)} style={{ cursor: isAdmin ? "pointer" : "default", display: "inline-flex", alignItems: "center", gap: 4, padding: "3px 10px", borderRadius: 99, fontSize: 13, fontWeight: 800,
+        background: r.completed ? "#2e9e5b22" : "#e5484d22", color: r.completed ? "#2e9e5b" : "#e5484d",
+        userSelect: "none", transition: ".15s" }}>
+        {r.completed ? "✓ تم التسديد" : "✕ لم يُسدد"}
+      </span>
+    )},
+    { key: "workplace", label: "مكان العمل" }, { key: "shop", label: "اسم المحل" }, { key: "service", label: "نوع الخدمة" },
+    { key: "labor", label: "تكلفة اليد العاملة", type: "num", render: (r) => money(r.labor) },
+    { key: "salaryExp", label: " المصروفات", type: "num", render: (r) => money(r.salaryExp) },
+    { key: "createdAt", label: "التاريخ", render: (r) => fmtDate(r.createdAt) },
+  ];
+
+  return (
+    <div style={{ display: "grid", gap: 16 }}>
+      <div className="no-print" style={{ display: "flex", alignItems: "center", gap: 10 }}>
+        <button className="btn btn-ghost" onClick={onBack}><RotateCcw size={16} /> رجوع</button>
+        <Avatar user={user} size={36} />
+        <div>
+          <h3 className="heading" style={{ margin: 0, fontSize: 17 }}>{user.name}</h3>
+          <div style={{ fontSize: 12, color: "var(--muted)", fontWeight: 700 }}>اسم المستخدم: {user.username}</div>
+        </div>
+      </div>
+      <div className="grid-stats">
+        <div className="card" style={{ padding: 14, display: "flex", alignItems: "center", gap: 10 }}>
+          <div style={{ width: 40, height: 40, borderRadius: 10, background: "#5b74b822", color: "#5b74b8", display: "grid", placeItems: "center" }}><ClipboardList size={18} /></div>
+          <div><div style={{ fontSize: 11, color: "var(--muted)", fontWeight: 700 }}>عدد الأعمال</div><div className="heading" style={{ fontSize: 18, fontWeight: 800 }}>{myRecords.length}</div></div>
+        </div>
+        <div className="card" style={{ padding: 14, display: "flex", alignItems: "center", gap: 10 }}>
+          <div style={{ width: 40, height: 40, borderRadius: 10, background: "#2e9e5b22", color: "#2e9e5b", display: "grid", placeItems: "center" }}><Check size={18} /></div>
+          <div><div style={{ fontSize: 11, color: "var(--muted)", fontWeight: 700 }}>تم التسديد</div><div className="heading" style={{ fontSize: 18, fontWeight: 800, color: "#2e9e5b" }}>{completedCount} / {myRecords.length}</div></div>
+        </div>
+        <div className="card" style={{ padding: 14, display: "flex", alignItems: "center", gap: 10 }}>
+          <div style={{ width: 40, height: 40, borderRadius: 10, background: "#5b74b822", color: "#5b74b8", display: "grid", placeItems: "center" }}><Wallet size={18} /></div>
+          <div><div style={{ fontSize: 11, color: "var(--muted)", fontWeight: 700 }}>اجمالي اليد العاملة</div><div className="heading" style={{ fontSize: 18, fontWeight: 800 }}>{money(totalLabor)}</div></div>
+        </div>
+        <div className="card" style={{ padding: 14, display: "flex", alignItems: "center", gap: 10 }}>
+          <div style={{ width: 40, height: 40, borderRadius: 10, background: "#8b5cf622", color: "#8b5cf6", display: "grid", placeItems: "center" }}><Receipt size={18} /></div>
+          <div><div style={{ fontSize: 11, color: "var(--muted)", fontWeight: 700 }}>اجمالي المصروفات</div><div className="heading" style={{ fontSize: 18, fontWeight: 800 }}>{money(totalExp)}</div></div>
+        </div>
+      </div>
+      <DataTable columns={columns} rows={myRecords} emptyMsg="لا توجد أعمال مسجلة لهذا الموظف." />
     </div>
   );
 }
