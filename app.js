@@ -51,6 +51,11 @@ var Menu = function(p) { return <Icon size={p.size}><path d="M4 5h16"/><path d="
 var ClipboardList = function(p) { return <Icon size={p.size}><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></Icon>; };
 var KeyRound = function(p) { return <Icon size={p.size}><path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"/><circle cx="16.5" cy="7.5" r="0.5" fill="currentColor"/></Icon>; };
 var AlertTriangle = function(p) { return <Icon size={p.size}><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></Icon>; };
+var Wallet = function(p) { return <Icon size={p.size}><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></Icon>; };
+var Receipt = function(p) { return <Icon size={p.size}><path d="M12 17V7"/><path d="M16 8h-6a2 2 0 0 0 0 4h4a2 2 0 0 1 0 4H8"/><path d="M4 3a1 1 0 0 1 1-1 1.3 1.3 0 0 1 .7.2l.933.6a1.3 1.3 0 0 0 1.4 0l.934-.6a1.3 1.3 0 0 1 1.4 0l.933.6a1.3 1.3 0 0 0 1.4 0l.933-.6a1.3 1.3 0 0 1 1.4 0l.934.6a1.3 1.3 0 0 0 1.4 0l.933-.6A1.3 1.3 0 0 1 19 2a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1 1.3 1.3 0 0 1-.7-.2l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.934.6a1.3 1.3 0 0 1-1.4 0l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-1.4 0l-.934-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-.7.2 1 1 0 0 1-1-1z"/></Icon>; };
+var TrendingUp = function(p) { return <Icon size={p.size}><path d="M16 7h6v6"/><path d="m22 7-8.5 8.5-5-5L2 17"/></Icon>; };
+var Package = function(p) { return <Icon size={p.size}><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"/><path d="M12 22V12"/><polyline points="3.29 7 12 12 20.71 7"/><path d="m7.5 4.27 9 5.15"/></Icon>; };
+var FileText = function(p) { return <Icon size={p.size}><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></Icon>; };
 var FileJson = function(p) { return <Icon size={p.size}><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 12a1 1 0 0 0-1 1v1a1 1 0 0 1-1 1 1 1 0 0 1 1 1v1a1 1 0 0 0 1 1"/><path d="M14 18a1 1 0 0 0 1-1v-1"/></Icon>; };
 
 /* ============================================================
@@ -538,7 +543,7 @@ function useConfirm() {
    صفحة الموظفين
    ============================================================ */
 function Employees() {
-  const { employees, persist, toast, log, mine, session, users } = useApp();
+  const { employees, persist, toast, log, mine, session, users, isAdmin } = useApp();
   const [modal, setModal] = useState(null);
   const { confirm, node } = useConfirm();
   const [fService, setFService] = useState("");
@@ -548,17 +553,32 @@ function Employees() {
   const rows = useMemo(() => visible.filter((e) => !fService || e.service === fService), [visible, fService]);
 
   const save = (data) => {
-    if (modal.mode === "add") { persist.employees([{ ...data, id: uid(), createdAt: now(), createdBy: session.id }, ...employees]); log("إضافة", "موظف", data.workplace); toast("تمت إضافة الموظف"); }
+    if (modal.mode === "add") { persist.employees([{ ...data, completed: false, id: uid(), createdAt: now(), createdBy: session.id }, ...employees]); log("إضافة", "موظف", data.workplace); toast("تمت إضافة الموظف"); }
     else { persist.employees(employees.map((e) => (e.id === modal.data.id ? { ...e, ...data } : e))); log("تعديل", "موظف", data.workplace); toast("تم التعديل"); }
     setModal(null);
   };
   const del = (row) => confirm("حذف «" + row.workplace + "»؟", () => { persist.employees(employees.filter((e) => e.id !== row.id)); log("حذف", "موظف", row.workplace); toast("تم الحذف", "error"); });
 
+  const toggleCompleted = (row) => {
+    if (!isAdmin) return;
+    const newVal = !row.completed;
+    persist.employees(employees.map((e) => (e.id === row.id ? { ...e, completed: newVal } : e)));
+    log(newVal ? "تسديد" : "إلغاء تسديد", "موظف", row.workplace + " — " + (users.find((u) => u.id === row.createdBy)?.name || ""));
+    toast(newVal ? "تم التسديد ✓" : "تم إلغاء التسديد");
+  };
+
   const columns = [
     { key: "workplace", label: "مكان العمل" }, { key: "shop", label: "اسم المحل" }, { key: "service", label: "نوع الخدمة" },
     { key: "labor", label: "تكلفة اليد العاملة", type: "num", render: (r) => money(r.labor) },
-    { key: "salaryExp", label: "مصروفات", type: "num", render: (r) => money(r.salaryExp) },
+    { key: "salaryExp", label: " المصروفات", type: "num", render: (r) => money(r.salaryExp) },
     { key: "createdBy", label: "الموظف", render: (r) => users.find((u) => u.id === r.createdBy)?.name || "—" },
+    { key: "completed", label: "خالص", noSort: true, render: (r) => (
+      <span onClick={() => toggleCompleted(r)} style={{ cursor: isAdmin ? "pointer" : "default", display: "inline-flex", alignItems: "center", gap: 4, padding: "3px 10px", borderRadius: 99, fontSize: 13, fontWeight: 800,
+        background: r.completed ? "#2e9e5b22" : "#e5484d22", color: r.completed ? "#2e9e5b" : "#e5484d",
+        userSelect: "none", transition: ".15s" }}>
+        {r.completed ? "✓ تم التسديد" : "✕ لم يُسدد"}
+      </span>
+    )},
     { key: "act", label: "إجراءات", noSort: true, render: (r) => (<div style={{ display: "flex", gap: 6 }}><button className="icon-btn" onClick={() => setModal({ mode: "edit", data: r })}><Pencil size={15} /></button><button className="icon-btn" onClick={() => del(r)}><Trash2 size={15} /></button></div>) },
   ];
 
@@ -608,7 +628,7 @@ function Customers() {
     setModal(null);
   };
   const columns = [
-    { key: "name", label: "اسم الزبون" }, { key: "workType", label: "نوع العمل" },
+    { key: "name", label: "اسم الزبون" }, { key: "phone", label: "رقم الهاتف" }, { key: "workType", label: "نوع العمل" },
     { key: "deposit", label: "العربون", render: (r) => money(r.deposit) },
     { key: "remaining", label: "الباقي", render: (r) => <b style={{ color: r.remaining > 0 ? "#e5484d" : "#2e9e5b" }}>{money(r.remaining)}</b> },
     { key: "createdBy", label: "الموظف", render: (r) => users.find((u) => u.id === r.createdBy)?.name || "—" },
@@ -617,7 +637,7 @@ function Customers() {
   return (<div><SectionHead onAdd={() => setModal({ mode: "add", data: {} })} /><DataTable columns={columns} rows={visible} />{modal && <Modal title="بيانات الزبون" onClose={() => setModal(null)} wide><CustomerForm data={modal.data} onSave={save} onClose={() => setModal(null)} /></Modal>}{node}</div>);
 }
 function CustomerForm({ data, onSave, onClose }) {
-  const [f, setF] = useState({ name: "", workType: "", materials: "", invoiceValue: "", design: "", labor: "", deposit: "", invoiceNumber: "", notes: "", ...data });
+  const [f, setF] = useState({ name: "", phone: "", workType: "", materials: "", invoiceValue: "", design: "", labor: "", deposit: "", invoiceNumber: "", notes: "", ...data });
   const [formErr, setFormErr] = useState("");
   const set = (k) => (e) => setF({ ...f, [k]: e.target.value });
   const handleSave = () => {
@@ -630,7 +650,8 @@ function CustomerForm({ data, onSave, onClose }) {
   };
   return (<div>
     <FormError error={formErr} />
-    <Grid2><Field label="اسم الزبون"><input className="input" value={f.name} onChange={set("name")} /></Field><Field label="نوع العمل"><input className="input" value={f.workType} onChange={set("workType")} /></Field></Grid2>
+    <Grid2><Field label="اسم الزبون"><input className="input" value={f.name} onChange={set("name")} /></Field><Field label="رقم الهاتف"><input className="input" value={f.phone} onChange={set("phone")} placeholder="05XXXXXXXX" /></Field></Grid2>
+    <Field label="نوع العمل"><input className="input" value={f.workType} onChange={set("workType")} /></Field>
     <Grid2><Field label="تكلفة المواد"><input className="input" type="number" value={f.materials} onChange={set("materials")} /></Field><Field label="قيمة الفاتورة"><input className="input" type="number" value={f.invoiceValue} onChange={set("invoiceValue")} /></Field></Grid2>
     <Grid2><Field label="تكلفة التصميم"><input className="input" type="number" value={f.design} onChange={set("design")} /></Field><Field label="رقم الفاتورة"><input className="input" value={f.invoiceNumber} onChange={set("invoiceNumber")} /></Field></Grid2>
     <Grid2><Field label="تكلفة العمالة"><input className="input" type="number" value={f.labor} onChange={set("labor")} /></Field><Field label="العربون"><input className="input" type="number" value={f.deposit} onChange={set("deposit")} /></Field></Grid2>
@@ -653,7 +674,7 @@ function Suppliers() {
     setModal(null);
   };
   const columns = [
-    { key: "name", label: "اسم المورد" }, { key: "goods", label: "نوع البضاعة" },
+    { key: "name", label: "اسم المورد" }, { key: "phone", label: "رقم الهاتف" }, { key: "goods", label: "نوع البضاعة" },
     { key: "remaining", label: "المتبقي", render: (r) => <b style={{ color: r.remaining > 0 ? "#e5484d" : "#2e9e5b" }}>{money(r.remaining)}</b> },
     { key: "createdBy", label: "الموظف", render: (r) => users.find((u) => u.id === r.createdBy)?.name || "—" },
     { key: "act", label: "إجراءات", noSort: true, render: (r) => (<div style={{ display: "flex", gap: 6 }}><button className="icon-btn" onClick={() => setModal({ mode: "edit", data: r })}><Pencil size={15} /></button><button className="icon-btn" onClick={() => confirm("حذف؟", () => persist.suppliers(suppliers.filter((s) => s.id !== r.id)))}><Trash2 size={15} /></button></div>) }
@@ -661,7 +682,7 @@ function Suppliers() {
   return (<div><SectionHead onAdd={() => setModal({ mode: "add", data: {} })} /><DataTable columns={columns} rows={visible} />{modal && <Modal title="المورد" onClose={() => setModal(null)}><SupplierForm data={modal.data} onSave={save} onClose={() => setModal(null)} /></Modal>}{node}</div>);
 }
 function SupplierForm({ data, onSave, onClose }) {
-  const [f, setF] = useState({ name: "", goods: "", invoice: "", paid: "", notes: "", ...data });
+  const [f, setF] = useState({ name: "", phone: "", goods: "", invoice: "", paid: "", notes: "", ...data });
   const [formErr, setFormErr] = useState("");
   const set = (k) => (e) => setF({ ...f, [k]: e.target.value });
   const handleSave = () => {
@@ -674,7 +695,8 @@ function SupplierForm({ data, onSave, onClose }) {
   };
   return (<div>
     <FormError error={formErr} />
-    <Grid2><Field label="اسم المورد"><input className="input" value={f.name} onChange={set("name")} /></Field><Field label="البضاعة"><input className="input" value={f.goods} onChange={set("goods")} /></Field></Grid2>
+    <Grid2><Field label="اسم المورد"><input className="input" value={f.name} onChange={set("name")} /></Field><Field label="رقم الهاتف"><input className="input" value={f.phone} onChange={set("phone")} placeholder="05XXXXXXXX" /></Field></Grid2>
+    <Field label="البضاعة"><input className="input" value={f.goods} onChange={set("goods")} /></Field>
     <Grid2><Field label="قيمة الفاتورة"><input className="input" type="number" value={f.invoice} onChange={set("invoice")} /></Field><Field label="المدفوع"><input className="input" type="number" value={f.paid} onChange={set("paid")} /></Field></Grid2>
     <FormActions onSave={handleSave} onClose={onClose} />
   </div>);
@@ -688,22 +710,54 @@ function Dashboard() {
   const myEmployees = useMemo(() => mine(employees), [employees, mine]);
   const myCustomers = useMemo(() => mine(customers), [customers, mine]);
   const mySuppliers = useMemo(() => mine(suppliers), [suppliers, mine]);
+
+  const totalLabor = myEmployees.reduce((a, e) => a + (Number(e.labor) || 0), 0);
+  const totalSalaryExp = myEmployees.reduce((a, e) => a + (Number(e.salaryExp) || 0), 0);
   const totalDeposit = myCustomers.reduce((a, c) => a + (Number(c.deposit) || 0), 0);
   const totalRemaining = myCustomers.reduce((a, c) => a + (Number(c.remaining) || 0), 0);
-  const totalInvoices = mySuppliers.reduce((a, s) => a + (Number(s.invoice) || 0), 0);
-  const barData = [{ name: "العربون", value: totalDeposit }, { name: "المتبقي", value: totalRemaining }, { name: "الفواتير", value: totalInvoices }];
-  
+  const totalMaterials = myCustomers.reduce((a, c) => a + (Number(c.materials) || 0), 0);
+  const totalInvoicesVal = myCustomers.reduce((a, c) => a + (Number(c.invoiceValue) || 0), 0);
+  const totalSupplierInvoices = mySuppliers.reduce((a, s) => a + (Number(s.invoice) || 0), 0);
+
+  const barData = [
+    { name: "اليد العاملة", value: totalLabor },
+    { name: "العربون", value: totalDeposit },
+    { name: "المتبقي", value: totalRemaining },
+    { name: "المواد", value: totalMaterials },
+    { name: "فواتير الزبائن", value: totalInvoicesVal },
+    { name: "فواتير الموردين", value: totalSupplierInvoices },
+  ];
+
+  const statCard = (icon, label, value, color, bg) => (
+    <div className="card" style={{ padding: 16, display: "flex", alignItems: "center", gap: 13 }}>
+      <div style={{ width: 46, height: 46, borderRadius: 12, background: bg, color: color, display: "grid", placeItems: "center", flexShrink: 0 }}>{icon}</div>
+      <div style={{ minWidth: 0 }}>
+        <div style={{ fontSize: 12, color: "var(--muted)", fontWeight: 700, whiteSpace: "nowrap" }}>{label}</div>
+        <div className="heading" style={{ fontSize: 19, fontWeight: 800 }}>{value}</div>
+      </div>
+    </div>
+  );
+
   return (
     <div style={{ display: "grid", gap: 18 }}>
       <div className="grid-stats">
-        <div className="card" style={{ padding: 16, display: "flex", alignItems: "center", gap: 13 }}><div style={{ width: 46, height: 46, borderRadius: 12, background: "#5b74b822", color: "#5b74b8", display: "grid", placeItems: "center" }}><Users size={22} /></div><div><div style={{ fontSize: 12.5, color: "var(--muted)", fontWeight: 700 }}>عدد الموظفين</div><div className="heading" style={{ fontSize: 21, fontWeight: 800 }}>{myEmployees.length}</div></div></div>
-        <div className="card" style={{ padding: 16, display: "flex", alignItems: "center", gap: 13 }}><div style={{ width: 46, height: 46, borderRadius: 12, background: "#2e9e5b22", color: "#2e9e5b", display: "grid", placeItems: "center" }}><UserRound size={22} /></div><div><div style={{ fontSize: 12.5, color: "var(--muted)", fontWeight: 700 }}>عدد الزبائن</div><div className="heading" style={{ fontSize: 21, fontWeight: 800 }}>{myCustomers.length}</div></div></div>
-        <div className="card" style={{ padding: 16, display: "flex", alignItems: "center", gap: 13 }}><div style={{ width: 46, height: 46, borderRadius: 12, background: "#d9832422", color: "#d98324", display: "grid", placeItems: "center" }}><Truck size={22} /></div><div><div style={{ fontSize: 12.5, color: "var(--muted)", fontWeight: 700 }}>عدد الموردين</div><div className="heading" style={{ fontSize: 21, fontWeight: 800 }}>{mySuppliers.length}</div></div></div>
+        {statCard(<Users size={22} />, "عدد الموظفين", myEmployees.length, "#5b74b8", "#5b74b822")}
+        {statCard(<UserRound size={22} />, "عدد الزبائن", myCustomers.length, "#2e9e5b", "#2e9e5b22")}
+        {statCard(<Truck size={22} />, "عدد الموردين", mySuppliers.length, "#d98324", "#d9832422")}
+      </div>
+      <div className="grid-stats">
+        {statCard(<Wallet size={22} />, "اجمالي اليد العاملة", money(totalLabor), "#5b74b8", "#5b74b822")}
+        {statCard(<Receipt size={22} />, "اجمالي مصروفات الموظفين", money(totalSalaryExp), "#8b5cf6", "#8b5cf622")}
+        {statCard(<TrendingUp size={22} />, "اجمالي العربون", money(totalDeposit), "#2e9e5b", "#2e9e5b22")}
+        {statCard(<AlertTriangle size={22} />, "اجمالي المتبقي", money(totalRemaining), "#e5484d", "#e5484d22")}
+        {statCard(<Package size={22} />, "اجمالي تكلفة المواد", money(totalMaterials), "#d98324", "#d9832422")}
+        {statCard(<FileText size={22} />, "اجمالي فواتير الزبائن", money(totalInvoicesVal), "#0ea5e9", "#0ea5e922")}
+        {statCard(<Truck size={22} />, "اجمالي فواتير الموردين", money(totalSupplierInvoices), "#e5484d", "#e5484d22")}
       </div>
       <div className="card" style={{ padding: 18 }}>
         <h3 className="heading" style={{ margin: "0 0 14px", fontSize: 16 }}>ملخص التكاليف والإيرادات</h3>
-        <ResponsiveContainer width="100%" height={260}>
-          <BarChart data={barData}><CartesianGrid strokeDasharray="3 3" stroke="var(--line)" /><XAxis dataKey="name" tick={{ fill: "var(--muted)", fontSize: 12 }} /><YAxis tick={{ fill: "var(--muted)", fontSize: 11 }} /><Tooltip contentStyle={{ direction: "rtl", background: "var(--surface)", border: "1px solid var(--line)", borderRadius: 10 }} /><Bar dataKey="value" fill={BRAND} radius={[8, 8, 0, 0]} /></BarChart>
+        <ResponsiveContainer width="100%" height={300}>
+          <BarChart data={barData}><CartesianGrid strokeDasharray="3 3" stroke="var(--line)" /><XAxis dataKey="name" tick={{ fill: "var(--muted)", fontSize: 11 }} /><YAxis tick={{ fill: "var(--muted)", fontSize: 11 }} /><Tooltip contentStyle={{ direction: "rtl", background: "var(--surface)", border: "1px solid var(--line)", borderRadius: 10 }} /><Bar dataKey="value" fill={BRAND} radius={[8, 8, 0, 0]} /></BarChart>
         </ResponsiveContainer>
       </div>
     </div>
