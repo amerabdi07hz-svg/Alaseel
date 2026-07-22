@@ -21,41 +21,37 @@ function Icon({ children, size }) {
   }, children);
 }
 
-var LayoutDashboard = function(props) { return React.createElement(Icon, { size: props.size }, React.createElement('rect', { width: 7, height: 9, x: 3, y: 3, rx: 1 }), React.createElement('rect', { width: 7, height: 5, x: 14, y: 3, rx: 1 }), React.createElement('rect', { width: 7, height: 9, x: 14, y: 12, rx: 1 }), React.createElement('rect', { width: 7, height: 5, x: 3, y: 16, rx: 1 })); };
-var Users = function(props) { return React.createElement(Icon, { size: props.size }, React.createElement('path', { d: 'M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2' }), React.createElement('path', { d: 'M16 3.128a4 4 0 0 1 0 7.744' }), React.createElement('path', { d: 'M22 21v-2a4 4 0 0 0-3-3.87' }), React.createElement('circle', { cx: 9, cy: 7, r: 4 })); };
-var UserRound = function(props) { return React.createElement(Icon, { size: props.size }, React.createElement('circle', { cx: 12, cy: 8, r: 5 }), React.createElement('path', { d: 'M20 21a8 8 0 0 0-16 0' })); };
-var Truck = function(props) { return React.createElement(Icon, { size: props.size }, React.createElement('path', { d: 'M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2' }), React.createElement('path', { d: 'M15 18H9' }), React.createElement('path', { d: 'M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14' }), React.createElement('circle', { cx: 17, cy: 18, r: 2 }), React.createElement('circle', { cx: 7, cy: 18, r: 2 })); };
-var UserIcon = function(props) { return React.createElement(Icon, { size: props.size }, React.createElement('path', { d: 'M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2' }), React.createElement('circle', { cx: 12, cy: 7, r: 4 })); };
-var LogOut = function(props) { return React.createElement(Icon, { size: props.size }, React.createElement('path', { d: 'm16 17 5-5-5-5' }), React.createElement('path', { d: 'M21 12H9' }), React.createElement('path', { d: 'M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4' })); };
-var Search = function(props) { return React.createElement(Icon, { size: props.size }, React.createElement('path', { d: 'm21 21-4.34-4.34' }), React.createElement('circle', { cx: 11, cy: 11, r: 8 })); };
-var Plus = function(props) { return React.createElement(Icon, { size: props.size }, React.createElement('path', { d: 'M5 12h14' }), React.createElement('path', { d: 'M12 5v14' })); };
-var Pencil = function(props) { return React.createElement(Icon, { size: props.size }, React.createElement('path', { d: 'M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z' }), React.createElement('path', { d: 'm15 5 4 4' })); };
-var Trash2 = function(props) { return React.createElement(Icon, { size: props.size }, React.createElement('path', { d: 'M10 11v6' }), React.createElement('path', { d: 'M14 11v6' }), React.createElement('path', { d: 'M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6' }), React.createElement('path', { d: 'M3 6h18' }), React.createElement('path', { d: 'M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2' })); };
-var Printer = function(props) { return React.createElement(Icon, { size: props.size }, React.createElement('path', { d: 'M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2' }), React.createElement('path', { d: 'M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6' }), React.createElement('rect', { x: 6, y: 14, width: 12, height: 8, rx: 1 })); };
-var FileText = function(props) { return React.createElement(Icon, { size: props.size }, React.createElement('path', { d: 'M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z' }), React.createElement('path', { d: 'M14 2v5a1 1 0 0 0 1 1h5' }), React.createElement('path', { d: 'M10 9H8' }), React.createElement('path', { d: 'M16 13H8' }), React.createElement('path', { d: 'M16 17H8' })); };
-var FileSpreadsheet = function(props) { return React.createElement(Icon, { size: props.size }, React.createElement('path', { d: 'M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z' }), React.createElement('path', { d: 'M14 2v5a1 1 0 0 0 1 1h5' }), React.createElement('path', { d: 'M8 13h2' }), React.createElement('path', { d: 'M14 13h2' }), React.createElement('path', { d: 'M8 17h2' }), React.createElement('path', { d: 'M14 17h2' })); };
-var Moon = function(props) { return React.createElement(Icon, { size: props.size }, React.createElement('path', { d: 'M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401' })); };
-var Sun = function(props) { return React.createElement(Icon, { size: props.size }, React.createElement('circle', { cx: 12, cy: 12, r: 4 }), React.createElement('path', { d: 'M12 2v2' }), React.createElement('path', { d: 'M12 20v2' }), React.createElement('path', { d: 'm4.93 4.93 1.41 1.41' }), React.createElement('path', { d: 'm17.66 17.66 1.41 1.41' }), React.createElement('path', { d: 'M2 12h2' }), React.createElement('path', { d: 'M20 12h2' }), React.createElement('path', { d: 'm6.34 17.66-1.41 1.41' }), React.createElement('path', { d: 'm19.07 4.93-1.41 1.41' })); };
-var Shield = function(props) { return React.createElement(Icon, { size: props.size }, React.createElement('path', { d: 'M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z' })); };
-var X = function(props) { return React.createElement(Icon, { size: props.size }, React.createElement('path', { d: 'M18 6 6 18' }), React.createElement('path', { d: 'm6 6 12 12' })); };
-var Check = function(props) { return React.createElement(Icon, { size: props.size }, React.createElement('path', { d: 'M20 6 9 17l-5-5' })); };
-var ChevronUp = function(props) { return React.createElement(Icon, { size: props.size }, React.createElement('path', { d: 'm18 15-6-6-6 6' })); };
-var ChevronDown = function(props) { return React.createElement(Icon, { size: props.size }, React.createElement('path', { d: 'm6 9 6 6 6-6' })); };
-var Filter = function(props) { return React.createElement(Icon, { size: props.size }, React.createElement('path', { d: 'M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14z' })); };
-var Save = function(props) { return React.createElement(Icon, { size: props.size }, React.createElement('path', { d: 'M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z' }), React.createElement('path', { d: 'M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7' }), React.createElement('path', { d: 'M7 3v4a1 1 0 0 0 1 1h7' })); };
-var RotateCcw = function(props) { return React.createElement(Icon, { size: props.size }, React.createElement('path', { d: 'M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8' }), React.createElement('path', { d: 'M3 3v5h5' })); };
-var Download = function(props) { return React.createElement(Icon, { size: props.size }, React.createElement('path', { d: 'M12 15V3' }), React.createElement('path', { d: 'M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4' }), React.createElement('path', { d: 'm7 10 5 5 5-5' })); };
-var Upload = function(props) { return React.createElement(Icon, { size: props.size }, React.createElement('path', { d: 'M12 3v12' }), React.createElement('path', { d: 'm17 8-5-5-5 5' }), React.createElement('path', { d: 'M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4' })); };
-var Eye = function(props) { return React.createElement(Icon, { size: props.size }, React.createElement('path', { d: 'M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0' }), React.createElement('circle', { cx: 12, cy: 12, r: 3 })); };
-var EyeOff = function(props) { return React.createElement(Icon, { size: props.size }, React.createElement('path', { d: 'M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49' }), React.createElement('path', { d: 'M14.084 14.158a3 3 0 0 1-4.242-4.242' }), React.createElement('path', { d: 'M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143' }), React.createElement('path', { d: 'm2 2 20 20' })); };
-var KeyRound = function(props) { return React.createElement(Icon, { size: props.size }, React.createElement('path', { d: 'M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z' }), React.createElement('circle', { cx: 16.5, cy: 7.5, r: 0.5, fill: 'currentColor' })); };
-var Power = function(props) { return React.createElement(Icon, { size: props.size }, React.createElement('path', { d: 'M12 2v10' }), React.createElement('path', { d: 'M18.4 6.6a9 9 0 1 1-12.77.04' })); };
-var Menu = function(props) { return React.createElement(Icon, { size: props.size }, React.createElement('path', { d: 'M4 5h16' }), React.createElement('path', { d: 'M4 12h16' }), React.createElement('path', { d: 'M4 19h16' })); };
-var ClipboardList = function(props) { return React.createElement(Icon, { size: props.size }, React.createElement('rect', { width: 8, height: 4, x: 8, y: 2, rx: 1, ry: 1 }), React.createElement('path', { d: 'M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2' }), React.createElement('path', { d: 'M12 11h4' }), React.createElement('path', { d: 'M12 16h4' }), React.createElement('path', { d: 'M8 11h.01' }), React.createElement('path', { d: 'M8 16h.01' })); };
-var TrendingUp = function(props) { return React.createElement(Icon, { size: props.size }, React.createElement('path', { d: 'M16 7h6v6' }), React.createElement('path', { d: 'm22 7-8.5 8.5-5-5L2 17' })); };
-var Wallet = function(props) { return React.createElement(Icon, { size: props.size }, React.createElement('path', { d: 'M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1' }), React.createElement('path', { d: 'M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4' })); };
-var Package = function(props) { return React.createElement(Icon, { size: props.size }, React.createElement('path', { d: 'M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z' }), React.createElement('path', { d: 'M12 22V12' }), React.createElement('polyline', { points: '3.29 7 12 12 20.71 7' }), React.createElement('path', { d: 'm7.5 4.27 9 5.15' })); };
-var Receipt = function(props) { return React.createElement(Icon, { size: props.size }, React.createElement('path', { d: 'M12 17V7' }), React.createElement('path', { d: 'M16 8h-6a2 2 0 0 0 0 4h4a2 2 0 0 1 0 4H8' }), React.createElement('path', { d: 'M4 3a1 1 0 0 1 1-1 1.3 1.3 0 0 1 .7.2l.933.6a1.3 1.3 0 0 0 1.4 0l.934-.6a1.3 1.3 0 0 1 1.4 0l.933.6a1.3 1.3 0 0 0 1.4 0l.933-.6a1.3 1.3 0 0 1 1.4 0l.934.6a1.3 1.3 0 0 0 1.4 0l.933-.6A1.3 1.3 0 0 1 19 2a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1 1.3 1.3 0 0 1-.7-.2l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.934.6a1.3 1.3 0 0 1-1.4 0l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-1.4 0l-.934-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-.7.2 1 1 0 0 1-1-1z' })); };
+var LayoutDashboard = function(p) { return <Icon size={p.size}><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></Icon>; };
+var Users = function(p) { return <Icon size={p.size}><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><path d="M16 3.128a4 4 0 0 1 0 7.744"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></Icon>; };
+var UserRound = function(p) { return <Icon size={p.size}><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></Icon>; };
+var Truck = function(p) { return <Icon size={p.size}><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></Icon>; };
+var UserIcon = function(p) { return <Icon size={p.size}><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></Icon>; };
+var LogOut = function(p) { return <Icon size={p.size}><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/></Icon>; };
+var Search = function(p) { return <Icon size={p.size}><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></Icon>; };
+var Plus = function(p) { return <Icon size={p.size}><path d="M5 12h14"/><path d="M12 5v14"/></Icon>; };
+var Pencil = function(p) { return <Icon size={p.size}><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></Icon>; };
+var Trash2 = function(p) { return <Icon size={p.size}><path d="M10 11v6"/><path d="M14 11v6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></Icon>; };
+var Printer = function(p) { return <Icon size={p.size}><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6"/><rect x="6" y="14" width="12" height="8" rx="1"/></Icon>; };
+var Moon = function(p) { return <Icon size={p.size}><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></Icon>; };
+var Sun = function(p) { return <Icon size={p.size}><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></Icon>; };
+var Shield = function(p) { return <Icon size={p.size}><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></Icon>; };
+var X = function(p) { return <Icon size={p.size}><path d="M18 6 6 18"/><path d="m6 6 12 12"/></Icon>; };
+var Check = function(p) { return <Icon size={p.size}><path d="M20 6 9 17l-5-5"/></Icon>; };
+var ChevronUp = function(p) { return <Icon size={p.size}><path d="m18 15-6-6-6 6"/></Icon>; };
+var ChevronDown = function(p) { return <Icon size={p.size}><path d="m6 9 6 6 6-6"/></Icon>; };
+var Filter = function(p) { return <Icon size={p.size}><path d="M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14z"/></Icon>; };
+var Save = function(p) { return <Icon size={p.size}><path d="M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7"/><path d="M7 3v4a1 1 0 0 0 1 1h7"/></Icon>; };
+var RotateCcw = function(p) { return <Icon size={p.size}><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></Icon>; };
+var Download = function(p) { return <Icon size={p.size}><path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/></Icon>; };
+var Upload = function(p) { return <Icon size={p.size}><path d="M12 3v12"/><path d="m17 8-5-5-5 5"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/></Icon>; };
+var Eye = function(p) { return <Icon size={p.size}><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></Icon>; };
+var EyeOff = function(p) { return <Icon size={p.size}><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/><path d="m2 2 20 20"/></Icon>; };
+var Power = function(p) { return <Icon size={p.size}><path d="M12 2v10"/><path d="M18.4 6.6a9 9 0 1 1-12.77.04"/></Icon>; };
+var Menu = function(p) { return <Icon size={p.size}><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></Icon>; };
+var ClipboardList = function(p) { return <Icon size={p.size}><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></Icon>; };
+var KeyRound = function(p) { return <Icon size={p.size}><path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"/><circle cx="16.5" cy="7.5" r="0.5" fill="currentColor"/></Icon>; };
+var AlertTriangle = function(p) { return <Icon size={p.size}><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></Icon>; };
+var FileJson = function(p) { return <Icon size={p.size}><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 12a1 1 0 0 0-1 1v1a1 1 0 0 1-1 1 1 1 0 0 1 1 1v1a1 1 0 0 0 1 1"/><path d="M14 18a1 1 0 0 0 1-1v-1"/></Icon>; };
 
 /* ============================================================
    نظام الأصيل للخدمات الإعلانية - الدوال المساعدة وقاعدة البيانات
@@ -65,43 +61,75 @@ const BRAND_LIGHT = "#3C4F81";
 const GREY = "#D1D3D4";
 
 const DB = {
-  async get(key, fallback) {
+  async get(collection, key, fallback) {
     try {
-      if(!window._fs || !window._db) return fallback;
-      const snap = await window._fs.getDoc(window._fs.doc(window._db, "appdata", key));
+      if (!window._fs || !window._db) return fallback;
+      const snap = await window._fs.getDoc(window._fs.doc(window._db, collection, key));
       if (snap.exists()) {
         const d = snap.data();
         return d && "v" in d ? d.v : fallback;
       }
       return fallback;
     } catch (e) {
-      console.error("Firestore get error", key, e);
+      console.error("Firestore get error", collection, key, e);
       return fallback;
     }
   },
-  async set(key, value) {
+  async set(collection, key, value) {
     try {
-      if(!window._fs || !window._db) return false;
-      await window._fs.setDoc(window._fs.doc(window._db, "appdata", key), { v: value });
+      if (!window._fs || !window._db) return false;
+      await window._fs.setDoc(window._fs.doc(window._db, collection, key), { v: value });
       return true;
     } catch (e) {
-      console.error("Firestore set error", key, e);
+      console.error("Firestore set error", collection, key, e);
       return false;
     }
   },
+};
+
+/* ---- تشفير كلمات المرور بـ SHA-256 مع ملح ---- */
+const PWD_SALT = "As33l2024!@#Sh0p";
+async function hashPwd(password) {
+  const data = new TextEncoder().encode(PWD_SALT + password + PWD_SALT);
+  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
 }
 
-function hashPwd(s) {
-  let h = 5381;
-  for (let i = 0; i < s.length; i++) h = (h * 33) ^ s.charCodeAt(i);
-  return "h" + (h >>> 0).toString(16);
-}
-
+/* ---- دوال مساعدة ---- */
 const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
 const now = () => new Date().toISOString();
 const fmtDate = (iso) =>
-  iso ? new Date(iso).toLocaleString("en-GB", { year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" }) : "-";
+  iso ? new Date(iso).toLocaleString("ar-EG", { year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" }) : "—";
 const money = (n) => (Number(n) || 0).toLocaleString("en-US", { maximumFractionDigits: 2 });
+
+/* ---- التحقق من صحة المدخلات ---- */
+function validateForm(fields) {
+  for (const f of fields) {
+    if (!f.value || !String(f.value).trim()) return f.label + " مطلوب";
+    if (f.type === "num" && f.value !== "" && isNaN(Number(f.value))) return f.label + " يجب أن يكون رقماً";
+    if (f.type === "posNum" && Number(f.value) < 0) return f.label + " يجب أن يكون رقماً موجباً";
+    if (f.min && String(f.value).trim().length < f.min) return f.label + " يجب أن يكون " + f.min + " أحرف على الأقل";
+  }
+  return null;
+}
+
+/* ---- تصدير البيانات ---- */
+function exportJSON(data, filename) {
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url; a.download = filename + ".json"; a.click();
+  URL.revokeObjectURL(url);
+}
+function importJSON(file, callback) {
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try { callback(JSON.parse(e.target.result)); }
+    catch { callback(null); }
+  };
+  reader.readAsText(file);
+}
 
 const PAGES = [
   { key: "dashboard", label: "الرئيسية" },
@@ -138,17 +166,9 @@ function App() {
 
   useEffect(() => {
     (async () => {
-      let u = await DB.get("users", null);
-      let r = await DB.get("roles", null);
-      if (!r) { r = DEFAULT_ROLES; await DB.set("roles", r); }
-      if (!u) {
-        u = [{
-          id: uid(), username: "admin", name: "المدير العام",
-          pwd: hashPwd("admin123"), roleId: "admin", active: true,
-          avatar: "", lastLogin: null, createdAt: now(),
-        }];
-        await DB.set("users", u);
-      }
+      let u = await DB.get("users", "main", null);
+      let r = await DB.get("roles", "main", null);
+      if (!r) { r = DEFAULT_ROLES; await DB.set("roles", "main", r); }
       // ضمان وجود دور الموظف بالصلاحيات الصحيحة
       const empIdx = r.findIndex((role) => role.id === "employee");
       if (empIdx >= 0) {
@@ -156,24 +176,33 @@ function App() {
       } else {
         r.push({ id: "employee", name: "موظف", pages: ["employees"], locked: false });
       }
-      await DB.set("roles", r);
+      await DB.set("roles", "main", r);
+      if (!u) {
+        const defaultPwd = await hashPwd("admin123");
+        u = [{
+          id: uid(), username: "admin", name: "المدير العام",
+          pwd: defaultPwd, roleId: "admin", active: true,
+          avatar: "", lastLogin: null, createdAt: now(),
+        }];
+        await DB.set("users", "main", u);
+      }
       setUsers(u); setRoles(r);
-      setEmployees(await DB.get("employees", []));
-      setCustomers(await DB.get("customers", []));
-      setSuppliers(await DB.get("suppliers", []));
-      setAudit(await DB.get("audit", []));
-      setTheme(await DB.get("theme", "light"));
-      setLoaded(true); // هذا السطر هو الذي يزيل شاشة التحميل
+      setEmployees(await DB.get("employees", "main", []));
+      setCustomers(await DB.get("customers", "main", []));
+      setSuppliers(await DB.get("suppliers", "main", []));
+      setAudit(await DB.get("audit", "main", []));
+      setTheme(await DB.get("settings", "theme", "light"));
+      setLoaded(true);
     })();
   }, []);
 
   const persist = {
-    users: (v) => { setUsers(v); DB.set("users", v); },
-    roles: (v) => { setRoles(v); DB.set("roles", v); },
-    employees: (v) => { setEmployees(v); DB.set("employees", v); },
-    customers: (v) => { setCustomers(v); DB.set("customers", v); },
-    suppliers: (v) => { setSuppliers(v); DB.set("suppliers", v); },
-    audit: (v) => { setAudit(v); DB.set("audit", v); },
+    users: (v) => { setUsers(v); DB.set("users", "main", v); },
+    roles: (v) => { setRoles(v); DB.set("roles", "main", v); },
+    employees: (v) => { setEmployees(v); DB.set("employees", "main", v); },
+    customers: (v) => { setCustomers(v); DB.set("customers", "main", v); },
+    suppliers: (v) => { setSuppliers(v); DB.set("suppliers", "main", v); },
+    audit: (v) => { setAudit(v); DB.set("audit", "main", v); },
   };
 
   const toast = useCallback((msg, type = "success") => {
@@ -184,17 +213,16 @@ function App() {
 
   const log = useCallback((action, entity, detail) => {
     const entry = { id: uid(), user: session?.name || "—", action, entity, detail, at: now() };
-    setAudit((prev) => { const next = [entry, ...prev].slice(0, 1000); DB.set("audit", next); return next; });
+    setAudit((prev) => { const next = [entry, ...prev].slice(0, 1000); DB.set("audit", "main", next); return next; });
   }, [session]);
 
-  const toggleTheme = () => { const t = theme === "light" ? "dark" : "light"; setTheme(t); DB.set("theme", t); };
+  const toggleTheme = () => { const t = theme === "light" ? "dark" : "light"; setTheme(t); DB.set("settings", "theme", t); };
 
   const currentRole = useMemo(
     () => roles.find((r) => r.id === session?.roleId) || null,
     [roles, session]
   );
 
-  // موظف يرى فقط ما أضافه هو، أما المدير فيرى كل شيء
   const isAdmin = currentRole?.id === "admin";
   const mine = useCallback(
     (arr) => (isAdmin || !session ? arr : arr.filter((x) => x.createdBy === session.id)),
@@ -210,7 +238,7 @@ function App() {
   if (!loaded) {
     return (
       <div dir="rtl" style={{ minHeight: "100vh", display: "grid", placeItems: "center", background: "#f1f3f8", fontFamily: "Tajawal, sans-serif" }}>
-        <div style={{ color: BRAND, fontWeight: 700 }}>جاري التحميل المكونات…</div>
+        <div style={{ color: BRAND, fontWeight: 700 }}>جاري التحميل…</div>
       </div>
     );
   }
@@ -226,25 +254,28 @@ function App() {
 }
 
 /* ============================================================
-   مكونات النظام (تسجيل الدخول، القائمة، وغيرها)
+   مكونات النظام
    ============================================================ */
 function Login() {
-  const { users, persist, setSession, toast, roles } = useApp();
+  const { users, persist, setSession, toast } = useApp();
   const [u, setU] = useState("");
   const [p, setP] = useState("");
   const [show, setShow] = useState(false);
   const [err, setErr] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const submit = () => {
-    setErr("");
+  const submit = async () => {
+    setErr(""); setLoading(true);
     const found = users.find((x) => x.username.trim().toLowerCase() === u.trim().toLowerCase());
-    if (!found) return setErr("اسم المستخدم غير موجود");
-    if (!found.active) return setErr("هذا الحساب موقوف. راجع المدير");
-    if (found.pwd !== hashPwd(p)) return setErr("كلمة المرور غير صحيحة");
+    if (!found) { setErr("اسم المستخدم غير موجود"); setLoading(false); return; }
+    if (!found.active) { setErr("هذا الحساب موقوف. راجع المدير"); setLoading(false); return; }
+    const hashed = await hashPwd(p);
+    if (found.pwd !== hashed) { setErr("كلمة المرور غير صحيحة"); setLoading(false); return; }
     const updated = users.map((x) => (x.id === found.id ? { ...x, lastLogin: now() } : x));
     persist.users(updated);
     setSession({ ...found, lastLogin: now() });
-    toast(`مرحباّ ${found.name}`);
+    toast("مرحباّ " + found.name);
+    setLoading(false);
   };
 
   return (
@@ -275,12 +306,9 @@ function Login() {
           </div>
         </div>
         {err && <div style={{ color: "#e5484d", fontSize: 13, fontWeight: 700, margin: "8px 0 4px" }}>{err}</div>}
-        <button className="btn btn-primary" style={{ width: "100%", justifyContent: "center", marginTop: 14, padding: 12 }} onClick={submit}>
-          تسجيل الدخول
+        <button className="btn btn-primary" style={{ width: "100%", justifyContent: "center", marginTop: 14, padding: 12 }} onClick={submit} disabled={loading}>
+          {loading ? "جاري التحقق…" : "تسجيل الدخول"}
         </button>
-        <p style={{ textAlign: "center", color: "var(--muted)", fontSize: 11.5, marginTop: 18, marginBottom: 0 }}>
-          الدخول الأول: admin / admin123
-        </p>
       </div>
     </div>
   );
@@ -349,7 +377,7 @@ function Shell() {
             <div style={{ fontSize: 11, color: "var(--muted)", fontWeight: 700, whiteSpace: "nowrap" }}>للخدمات الإعلانية</div>
           </div>
           {isMobile && (
-            <button className="icon-btn" style={{ marginInlineStart: "auto", flexShrink: 0 }} onClick={() => setMobileOpen(false)} aria-label="إغلاق القائمة"><X size={18} /></button>
+            <button className="icon-btn" style={{ marginInlineStart: "auto", flexShrink: 0 }} onClick={() => setMobileOpen(false)} aria-label="إغلاق"><X size={18} /></button>
           )}
         </div>
         <nav style={{ display: "flex", flexDirection: "column", gap: 4, flex: 1, overflowY: "auto" }}>
@@ -415,7 +443,7 @@ function Avatar({ user, size = 38 }) {
   return <div style={{ width: size, height: size, borderRadius: "50%", background: BRAND, color: "#fff", display: "grid", placeItems: "center", fontWeight: 800, fontSize: size * 0.42, flexShrink: 0 }}>{(user.name || "?").trim().charAt(0)}</div>;
 }
 
-function DataTable({ columns, rows, title, filters, exportName }) {
+function DataTable({ columns, rows, title, filters, emptyMsg }) {
   const [q, setQ] = useState("");
   const [sort, setSort] = useState({ key: null, dir: 1 });
   const [showFilters, setShowFilters] = useState(false);
@@ -457,7 +485,7 @@ function DataTable({ columns, rows, title, filters, exportName }) {
             <tr>{columns.map((c) => <th key={c.key} className={c.noSort ? "no-sort" : ""} onClick={() => clickSort(c)}>{c.label} {sort.key === c.key && (sort.dir === 1 ? <ChevronUp size={13} /> : <ChevronDown size={13} />)}</th>)}</tr>
           </thead>
           <tbody>
-            {filtered.length === 0 ? <tr><td colSpan={columns.length} style={{ textAlign: "center", padding: 40 }}>لا توجد بيانات.</td></tr> : filtered.map((row) => <tr key={row.id}>{columns.map((c) => <td key={c.key}>{c.render ? c.render(row) : getVal(row, c)}</td>)}</tr>)}
+            {filtered.length === 0 ? <tr><td colSpan={columns.length} style={{ textAlign: "center", padding: 40 }}>{emptyMsg || "لا توجد بيانات."}</td></tr> : filtered.map((row) => <tr key={row.id}>{columns.map((c) => <td key={c.key}>{c.render ? c.render(row) : getVal(row, c)}</td>)}</tr>)}
           </tbody>
         </table>
       </div>
@@ -479,10 +507,20 @@ function Modal({ title, onClose, children, wide }) {
   );
 }
 
-function Field({ label, children }) { return <div><label className="label">{label}</label>{children}</div>; }
+function Field({ label, children, error }) {
+  return <div><label className="label">{label}</label>{children}
+    {error && <div style={{ color: "#e5484d", fontSize: 12, fontWeight: 700, marginTop: 4 }}>{error}</div>}
+  </div>;
+}
 function Grid2({ children }) { return <div className="grid2">{children}</div>; }
 function SectionHead({ title, onAdd }) { return <div className="no-print" style={{ display: "flex", alignItems: "center", marginBottom: 16 }}><button className="btn btn-primary" style={{ marginInlineStart: "auto" }} onClick={onAdd}><Plus size={16} /> إضافة</button></div>; }
 function FormActions({ onSave, onClose }) { return <div style={{ display: "flex", gap: 10, marginTop: 20 }}><button className="btn btn-primary" onClick={onSave}><Check size={16} /> حفظ</button><button className="btn btn-ghost" onClick={onClose}>إلغاء</button></div>; }
+function FormError({ error }) {
+  if (!error) return null;
+  return <div style={{ background: "#e5484d11", border: "1px solid #e5484d33", borderRadius: 10, padding: "10px 14px", marginBottom: 14, display: "flex", alignItems: "center", gap: 8, color: "#e5484d", fontSize: 13, fontWeight: 700 }}>
+    <AlertTriangle size={16} /> {error}
+  </div>;
+}
 
 function useConfirm() {
   const [state, setState] = useState(null);
@@ -496,6 +534,9 @@ function useConfirm() {
   return { confirm, node };
 }
 
+/* ============================================================
+   صفحة الموظفين
+   ============================================================ */
 function Employees() {
   const { employees, persist, toast, log, mine, session, users } = useApp();
   const [modal, setModal] = useState(null);
@@ -511,7 +552,7 @@ function Employees() {
     else { persist.employees(employees.map((e) => (e.id === modal.data.id ? { ...e, ...data } : e))); log("تعديل", "موظف", data.workplace); toast("تم التعديل"); }
     setModal(null);
   };
-  const del = (row) => confirm(`حذف «${row.workplace}»؟`, () => { persist.employees(employees.filter((e) => e.id !== row.id)); log("حذف", "موظف", row.workplace); toast("تم الحذف", "error"); });
+  const del = (row) => confirm("حذف «" + row.workplace + "»؟", () => { persist.employees(employees.filter((e) => e.id !== row.id)); log("حذف", "موظف", row.workplace); toast("تم الحذف", "error"); });
 
   const columns = [
     { key: "workplace", label: "مكان العمل" }, { key: "shop", label: "اسم المحل" }, { key: "service", label: "نوع الخدمة" },
@@ -532,12 +573,31 @@ function Employees() {
 }
 function EmployeeForm({ data, onSave, onClose }) {
   const [f, setF] = useState({ workplace: "", shop: "", service: "", labor: "", salaryExp: "", notes: "", ...data });
+  const [formErr, setFormErr] = useState("");
   const set = (k) => (e) => setF({ ...f, [k]: e.target.value });
-  return (<div><Grid2><Field label="مكان العمل"><input className="input" value={f.workplace} onChange={set("workplace")} /></Field><Field label="المحل"><input className="input" value={f.shop} onChange={set("shop")} /></Field></Grid2><Field label="نوع الخدمة"><input className="input" value={f.service} onChange={set("service")} /></Field><Grid2><Field label="تكلفة العمالة"><input className="input" type="number" value={f.labor} onChange={set("labor")} /></Field><Field label="مصروفات"><input className="input" type="number" value={f.salaryExp} onChange={set("salaryExp")} /></Field></Grid2><FormActions onSave={() => onSave(f)} onClose={onClose} /></div>);
+  const handleSave = () => {
+    const err = validateForm([
+      { value: f.workplace, label: "مكان العمل", min: 2 },
+      { value: f.shop, label: "اسم المحل", min: 2 },
+      { value: f.service, label: "نوع الخدمة" },
+    ]);
+    if (err) { setFormErr(err); return; }
+    onSave(f);
+  };
+  return (<div>
+    <FormError error={formErr} />
+    <Grid2><Field label="مكان العمل"><input className="input" value={f.workplace} onChange={set("workplace")} /></Field><Field label="المحل"><input className="input" value={f.shop} onChange={set("shop")} /></Field></Grid2>
+    <Field label="نوع الخدمة"><input className="input" value={f.service} onChange={set("service")} /></Field>
+    <Grid2><Field label="تكلفة العمالة"><input className="input" type="number" value={f.labor} onChange={set("labor")} /></Field><Field label="مصروفات"><input className="input" type="number" value={f.salaryExp} onChange={set("salaryExp")} /></Field></Grid2>
+    <FormActions onSave={handleSave} onClose={onClose} />
+  </div>);
 }
 
+/* ============================================================
+   صفحة الزبائن
+   ============================================================ */
 function Customers() {
-  const { customers, persist, toast, log, mine, session } = useApp();
+  const { customers, persist, toast, log, mine, session, users } = useApp();
   const [modal, setModal] = useState(null);
   const { confirm, node } = useConfirm();
   const visible = useMemo(() => mine(customers), [customers, mine]);
@@ -547,37 +607,84 @@ function Customers() {
     else { persist.customers(customers.map((c) => (c.id === modal.data.id ? { ...c, ...rec } : c))); log("تعديل", "زبون", data.name); toast("تم التعديل"); }
     setModal(null);
   };
-  const columns = [{ key: "name", label: "اسم الزبون" }, { key: "workType", label: "نوع العمل" }, { key: "deposit", label: "العربون", render: (r) => money(r.deposit) }, { key: "remaining", label: "الباقي", render: (r) => <b style={{ color: r.remaining > 0 ? "#e5484d" : "#2e9e5b" }}>{money(r.remaining)}</b> }, { key: "act", label: "إجراءات", noSort: true, render: (r) => (<div style={{ display: "flex", gap: 6 }}><button className="icon-btn" onClick={() => setModal({ mode: "edit", data: r })}><Pencil size={15} /></button><button className="icon-btn" onClick={() => confirm("حذف؟", () => persist.customers(customers.filter((c) => c.id !== r.id)))}><Trash2 size={15} /></button></div>) }];
+  const columns = [
+    { key: "name", label: "اسم الزبون" }, { key: "workType", label: "نوع العمل" },
+    { key: "deposit", label: "العربون", render: (r) => money(r.deposit) },
+    { key: "remaining", label: "الباقي", render: (r) => <b style={{ color: r.remaining > 0 ? "#e5484d" : "#2e9e5b" }}>{money(r.remaining)}</b> },
+    { key: "createdBy", label: "الموظف", render: (r) => users.find((u) => u.id === r.createdBy)?.name || "—" },
+    { key: "act", label: "إجراءات", noSort: true, render: (r) => (<div style={{ display: "flex", gap: 6 }}><button className="icon-btn" onClick={() => setModal({ mode: "edit", data: r })}><Pencil size={15} /></button><button className="icon-btn" onClick={() => confirm("حذف؟", () => persist.customers(customers.filter((c) => c.id !== r.id)))}><Trash2 size={15} /></button></div>) }
+  ];
   return (<div><SectionHead onAdd={() => setModal({ mode: "add", data: {} })} /><DataTable columns={columns} rows={visible} />{modal && <Modal title="بيانات الزبون" onClose={() => setModal(null)} wide><CustomerForm data={modal.data} onSave={save} onClose={() => setModal(null)} /></Modal>}{node}</div>);
 }
 function CustomerForm({ data, onSave, onClose }) {
   const [f, setF] = useState({ name: "", workType: "", materials: "", invoiceValue: "", design: "", labor: "", deposit: "", invoiceNumber: "", notes: "", ...data });
+  const [formErr, setFormErr] = useState("");
   const set = (k) => (e) => setF({ ...f, [k]: e.target.value });
-  return (<div><Grid2><Field label="اسم الزبون"><input className="input" value={f.name} onChange={set("name")} /></Field><Field label="نوع العمل"><input className="input" value={f.workType} onChange={set("workType")} /></Field></Grid2><Grid2><Field label="تكلفة المواد"><input className="input" type="number" value={f.materials} onChange={set("materials")} /></Field><Field label="قيمة الفاتورة"><input className="input" type="number" value={f.invoiceValue} onChange={set("invoiceValue")} /></Field></Grid2><Grid2><Field label="تكلفة التصميم"><input className="input" type="number" value={f.design} onChange={set("design")} /></Field><Field label="رقم الفاتورة"><input className="input" value={f.invoiceNumber} onChange={set("invoiceNumber")} /></Field></Grid2><Grid2><Field label="تكلفة العمالة"><input className="input" type="number" value={f.labor} onChange={set("labor")} /></Field><Field label="العربون"><input className="input" type="number" value={f.deposit} onChange={set("deposit")} /></Field></Grid2><FormActions onSave={() => onSave(f)} onClose={onClose} /></div>);
+  const handleSave = () => {
+    const err = validateForm([
+      { value: f.name, label: "اسم الزبون", min: 2 },
+      { value: f.workType, label: "نوع العمل" },
+    ]);
+    if (err) { setFormErr(err); return; }
+    onSave(f);
+  };
+  return (<div>
+    <FormError error={formErr} />
+    <Grid2><Field label="اسم الزبون"><input className="input" value={f.name} onChange={set("name")} /></Field><Field label="نوع العمل"><input className="input" value={f.workType} onChange={set("workType")} /></Field></Grid2>
+    <Grid2><Field label="تكلفة المواد"><input className="input" type="number" value={f.materials} onChange={set("materials")} /></Field><Field label="قيمة الفاتورة"><input className="input" type="number" value={f.invoiceValue} onChange={set("invoiceValue")} /></Field></Grid2>
+    <Grid2><Field label="تكلفة التصميم"><input className="input" type="number" value={f.design} onChange={set("design")} /></Field><Field label="رقم الفاتورة"><input className="input" value={f.invoiceNumber} onChange={set("invoiceNumber")} /></Field></Grid2>
+    <Grid2><Field label="تكلفة العمالة"><input className="input" type="number" value={f.labor} onChange={set("labor")} /></Field><Field label="العربون"><input className="input" type="number" value={f.deposit} onChange={set("deposit")} /></Field></Grid2>
+    <FormActions onSave={handleSave} onClose={onClose} />
+  </div>);
 }
 
+/* ============================================================
+   صفحة الموردين
+   ============================================================ */
 function Suppliers() {
-  const { suppliers, persist, toast, log, mine, session } = useApp();
+  const { suppliers, persist, toast, log, mine, session, users } = useApp();
   const [modal, setModal] = useState(null);
   const { confirm, node } = useConfirm();
   const visible = useMemo(() => mine(suppliers), [suppliers, mine]);
   const save = (data) => {
     const rec = { ...data, remaining: (Number(data.invoice)||0) - (Number(data.paid)||0) };
-    if (modal.mode === "add") { persist.suppliers([{ ...rec, id: uid(), createdAt: now(), createdBy: session.id }, ...suppliers]); toast("تم الإضافة"); }
-    else { persist.suppliers(suppliers.map((s) => (s.id === modal.data.id ? { ...s, ...rec } : s))); toast("تم التعديل"); }
+    if (modal.mode === "add") { persist.suppliers([{ ...rec, id: uid(), createdAt: now(), createdBy: session.id }, ...suppliers]); log("إضافة", "مورد", data.name); toast("تم الإضافة"); }
+    else { persist.suppliers(suppliers.map((s) => (s.id === modal.data.id ? { ...s, ...rec } : s))); log("تعديل", "مورد", data.name); toast("تم التعديل"); }
     setModal(null);
   };
-  const columns = [{ key: "name", label: "اسم المورد" }, { key: "goods", label: "نوع البضاعة" }, { key: "remaining", label: "المتبقي", render: (r) => <b style={{ color: r.remaining > 0 ? "#e5484d" : "#2e9e5b" }}>{money(r.remaining)}</b> }, { key: "act", label: "إجراءات", noSort: true, render: (r) => (<div style={{ display: "flex", gap: 6 }}><button className="icon-btn" onClick={() => setModal({ mode: "edit", data: r })}><Pencil size={15} /></button><button className="icon-btn" onClick={() => confirm("حذف؟", () => persist.suppliers(suppliers.filter((s) => s.id !== r.id)))}><Trash2 size={15} /></button></div>) }];
+  const columns = [
+    { key: "name", label: "اسم المورد" }, { key: "goods", label: "نوع البضاعة" },
+    { key: "remaining", label: "المتبقي", render: (r) => <b style={{ color: r.remaining > 0 ? "#e5484d" : "#2e9e5b" }}>{money(r.remaining)}</b> },
+    { key: "createdBy", label: "الموظف", render: (r) => users.find((u) => u.id === r.createdBy)?.name || "—" },
+    { key: "act", label: "إجراءات", noSort: true, render: (r) => (<div style={{ display: "flex", gap: 6 }}><button className="icon-btn" onClick={() => setModal({ mode: "edit", data: r })}><Pencil size={15} /></button><button className="icon-btn" onClick={() => confirm("حذف؟", () => persist.suppliers(suppliers.filter((s) => s.id !== r.id)))}><Trash2 size={15} /></button></div>) }
+  ];
   return (<div><SectionHead onAdd={() => setModal({ mode: "add", data: {} })} /><DataTable columns={columns} rows={visible} />{modal && <Modal title="المورد" onClose={() => setModal(null)}><SupplierForm data={modal.data} onSave={save} onClose={() => setModal(null)} /></Modal>}{node}</div>);
 }
 function SupplierForm({ data, onSave, onClose }) {
   const [f, setF] = useState({ name: "", goods: "", invoice: "", paid: "", notes: "", ...data });
+  const [formErr, setFormErr] = useState("");
   const set = (k) => (e) => setF({ ...f, [k]: e.target.value });
-  return (<div><Grid2><Field label="اسم المورد"><input className="input" value={f.name} onChange={set("name")} /></Field><Field label="البضاعة"><input className="input" value={f.goods} onChange={set("goods")} /></Field></Grid2><Grid2><Field label="قيمة الفاتورة"><input className="input" type="number" value={f.invoice} onChange={set("invoice")} /></Field><Field label="المدفوع"><input className="input" type="number" value={f.paid} onChange={set("paid")} /></Field></Grid2><FormActions onSave={() => onSave(f)} onClose={onClose} /></div>);
+  const handleSave = () => {
+    const err = validateForm([
+      { value: f.name, label: "اسم المورد", min: 2 },
+      { value: f.goods, label: "نوع البضاعة" },
+    ]);
+    if (err) { setFormErr(err); return; }
+    onSave(f);
+  };
+  return (<div>
+    <FormError error={formErr} />
+    <Grid2><Field label="اسم المورد"><input className="input" value={f.name} onChange={set("name")} /></Field><Field label="البضاعة"><input className="input" value={f.goods} onChange={set("goods")} /></Field></Grid2>
+    <Grid2><Field label="قيمة الفاتورة"><input className="input" type="number" value={f.invoice} onChange={set("invoice")} /></Field><Field label="المدفوع"><input className="input" type="number" value={f.paid} onChange={set("paid")} /></Field></Grid2>
+    <FormActions onSave={handleSave} onClose={onClose} />
+  </div>);
 }
 
+/* ============================================================
+   لوحة التحكم
+   ============================================================ */
 function Dashboard() {
-  const { employees, customers, suppliers, theme, mine } = useApp();
+  const { employees, customers, suppliers, mine } = useApp();
   const myEmployees = useMemo(() => mine(employees), [employees, mine]);
   const myCustomers = useMemo(() => mine(customers), [customers, mine]);
   const mySuppliers = useMemo(() => mine(suppliers), [suppliers, mine]);
@@ -603,26 +710,36 @@ function Dashboard() {
   );
 }
 
+/* ============================================================
+   إدارة المستخدمين
+   ============================================================ */
 function UsersAdmin() {
   const { users, roles, persist, toast, log, session } = useApp();
   const [modal, setModal] = useState(null);
   const { confirm, node } = useConfirm();
 
-  const save = (data) => {
+  const save = async (data) => {
     const uname = (data.username || "").trim();
     if (!data.name || !uname) return toast("الاسم واسم المستخدم مطلوبان", "error");
+    if (data.name.trim().length < 2) return toast("الاسم يجب أن يكون حرفين على الأقل", "error");
+    if (uname.length < 3) return toast("اسم المستخدم يجب أن يكون 3 أحرف على الأقل", "error");
     const dup = users.find((u) => u.username.trim().toLowerCase() === uname.toLowerCase() && u.id !== (modal.data && modal.data.id));
     if (dup) return toast("اسم المستخدم مستخدم بالفعل", "error");
     if (modal.mode === "add") {
       if (!data.pwd) return toast("كلمة المرور مطلوبة", "error");
-      const rec = { id: uid(), name: data.name, username: uname, pwd: hashPwd(data.pwd), roleId: data.roleId || "employee", active: true, avatar: "", lastLogin: null, createdAt: now() };
+      if (data.pwd.length < 6) return toast("كلمة المرور يجب أن تكون 6 أحرف على الأقل", "error");
+      const hashedPwd = await hashPwd(data.pwd);
+      const rec = { id: uid(), name: data.name, username: uname, pwd: hashedPwd, roleId: data.roleId || "employee", active: true, avatar: "", lastLogin: null, createdAt: now() };
       persist.users([rec, ...users]);
       log("إضافة", "مستخدم", uname);
       toast("تمت إضافة المستخدم");
     } else {
-      const updated = users.map((u) => u.id === modal.data.id
-        ? { ...u, name: data.name, username: uname, roleId: data.roleId, ...(data.pwd ? { pwd: hashPwd(data.pwd) } : {}) }
-        : u);
+      let updateFields = { name: data.name, username: uname, roleId: data.roleId };
+      if (data.pwd) {
+        if (data.pwd.length < 6) return toast("كلمة المرور يجب أن تكون 6 أحرف على الأقل", "error");
+        updateFields.pwd = await hashPwd(data.pwd);
+      }
+      const updated = users.map((u) => u.id === modal.data.id ? { ...u, ...updateFields } : u);
       persist.users(updated);
       log("تعديل", "مستخدم", uname);
       toast("تم التعديل");
@@ -638,7 +755,7 @@ function UsersAdmin() {
 
   const del = (row) => {
     if (row.id === session.id) return toast("لا يمكنك حذف حسابك الحالي", "error");
-    confirm(`حذف المستخدم «${row.name}»؟`, () => {
+    confirm("حذف المستخدم «" + row.name + "»؟", () => {
       persist.users(users.filter((u) => u.id !== row.id));
       log("حذف", "مستخدم", row.name);
       toast("تم الحذف", "error");
@@ -689,7 +806,7 @@ function UserForm({ data, onSave, onClose }) {
         <Field label="اسم المستخدم"><input className="input" value={f.username} onChange={set("username")} /></Field>
       </Grid2>
       <div style={{ marginTop: 14 }}>
-        <Field label={isEdit ? "كلمة مرور جديدة (اتركها فارغة لعدم التغيير)" : "كلمة المرور"}>
+        <Field label={isEdit ? "كلمة مرور جديدة (اتركها فارغة لعدم التغيير)" : "كلمة المرور (6 أحرف على الأقل)"}>
           <div style={{ position: "relative" }}>
             <input className="input" type={show ? "text" : "password"} value={f.pwd} onChange={set("pwd")}
               placeholder={isEdit ? "••••••••" : ""} style={{ paddingLeft: 42 }} />
@@ -713,25 +830,141 @@ function UserForm({ data, onSave, onClose }) {
   );
 }
 
+/* ============================================================
+   سجل العمليات
+   ============================================================ */
 function AuditLog() {
   const { audit } = useApp();
-  const columns = [{ key: "user", label: "المستخدم" }, { key: "action", label: "العملية" }, { key: "entity", label: "العنصر" }, { key: "at", label: "الوقت", render: (r) => fmtDate(r.at) }];
+  const columns = [
+    { key: "user", label: "المستخدم" }, { key: "action", label: "العملية" },
+    { key: "entity", label: "العنصر" }, { key: "detail", label: "التفاصيل" },
+    { key: "at", label: "الوقت", render: (r) => fmtDate(r.at) }
+  ];
   return <DataTable columns={columns} rows={audit} />;
 }
 
+/* ============================================================
+   النسخ الاحتياطي
+   ============================================================ */
 function Backup() {
-  return <div className="card" style={{ padding: 24 }}><p>لتحميل نسخة احتياطية من البيانات.</p></div>;
+  const { users, roles, employees, customers, suppliers, audit, persist, toast, log } = useApp();
+  const fileRef = React.useRef(null);
+
+  const backupAll = () => {
+    const data = { version: "2.0", exportedAt: now(), users, roles, employees, customers, suppliers, audit };
+    exportJSON(data, "aseel-backup-" + new Date().toISOString().slice(0, 10));
+    log("نسخ احتياطي", "النظام", "تصدير كامل");
+    toast("تم تصدير النسخة الاحتياطية بنجاح");
+  };
+
+  const backupData = (label, data, filename) => {
+    exportJSON(data, filename + "-" + new Date().toISOString().slice(0, 10));
+    log("نسخ احتياطي", label, "تصدير");
+    toast("تم تصدير " + label);
+  };
+
+  const handleImport = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    importJSON(file, (data) => {
+      if (!data) return toast("ملف غير صالح", "error");
+      if (data.employees) { persist.employees(data.employees); }
+      if (data.customers) { persist.customers(data.customers); }
+      if (data.suppliers) { persist.suppliers(data.suppliers); }
+      if (data.users) { persist.users(data.users); }
+      if (data.roles) { persist.roles(data.roles); }
+      log("استيراد", "النظام", "استيراد من ملف");
+      toast("تم الاستيراد بنجاح");
+    });
+    e.target.value = "";
+  };
+
+  return (
+    <div style={{ display: "grid", gap: 14 }}>
+      <div className="card" style={{ padding: 20 }}>
+        <h3 className="heading" style={{ margin: "0 0 14px", fontSize: 16 }}>نسخة احتياطية كاملة</h3>
+        <p style={{ color: "var(--muted)", fontSize: 13, margin: "0 0 14px" }}>تصدير جميع البيانات (المستخدمين، الموظفين، الزبائن، الموردين، السجل) كملف JSON واحد.</p>
+        <button className="btn btn-primary" onClick={backupAll}><Download size={16} /> تصدير نسخة احتياطية كاملة</button>
+      </div>
+
+      <div className="card" style={{ padding: 20 }}>
+        <h3 className="heading" style={{ margin: "0 0 14px", fontSize: 16 }}>تصدير أقسام محددة</h3>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+          <button className="btn btn-ghost" onClick={() => backupData("الموظفين", employees, "employees")}><Download size={15} /> الموظفون</button>
+          <button className="btn btn-ghost" onClick={() => backupData("الزبائن", customers, "customers")}><Download size={15} /> الزبائن</button>
+          <button className="btn btn-ghost" onClick={() => backupData("الموردين", suppliers, "suppliers")}><Download size={15} /> الموردون</button>
+          <button className="btn btn-ghost" onClick={() => backupData("المستخدمين", users, "users")}><Download size={15} /> المستخدمون</button>
+          <button className="btn btn-ghost" onClick={() => backupData("السجل", audit, "audit")}><Download size={15} /> سجل العمليات</button>
+        </div>
+      </div>
+
+      <div className="card" style={{ padding: 20 }}>
+        <h3 className="heading" style={{ margin: "0 0 14px", fontSize: 16 }}>استيراد بيانات</h3>
+        <p style={{ color: "var(--muted)", fontSize: 13, margin: "0 0 14px" }}>استيراد بيانات من ملف JSON نسخة احتياطية سابقة. سيتم تحديث جميع الأقسام الموجودة.</p>
+        <input ref={fileRef} type="file" accept=".json" style={{ display: "none" }} onChange={handleImport} />
+        <button className="btn btn-ghost" onClick={() => fileRef.current.click()}><Upload size={16} /> استيراد من ملف</button>
+      </div>
+    </div>
+  );
 }
 
+/* ============================================================
+   الملف الشخصي
+   ============================================================ */
 function Profile() {
-  const { session } = useApp();
-  return <div className="card" style={{ padding: 24 }}><h3 className="heading">الملف الشخصي</h3><p>الاسم: {session.name}</p></div>;
+  const { session, persist, toast } = useApp();
+  const [name, setName] = useState(session.name);
+  const [pwd, setPwd] = useState("");
+  const [show, setShow] = useState(false);
+  const [saving, setSaving] = useState(false);
+
+  const save = async () => {
+    if (!name.trim() || name.trim().length < 2) return toast("الاسم يجب أن يكون حرفين على الأقل", "error");
+    setSaving(true);
+    const updates = { name: name.trim() };
+    if (pwd) {
+      if (pwd.length < 6) { toast("كلمة المرور يجب أن تكون 6 أحرف على الأقل", "error"); setSaving(false); return; }
+      updates.pwd = await hashPwd(pwd);
+    }
+    const users = await DB.get("users", "main", []);
+    const updated = users.map((u) => u.id === session.id ? { ...u, ...updates } : u);
+    persist.users(updated);
+    toast("تم تحديث الملف الشخصي");
+    setPwd(""); setSaving(false);
+  };
+
+  return (
+    <div className="card" style={{ padding: 24, maxWidth: 500 }}>
+      <h3 className="heading" style={{ margin: "0 0 20px" }}>الملف الشخصي</h3>
+      <Field label="الاسم"><input className="input" value={name} onChange={(e) => setName(e.target.value)} /></Field>
+      <div style={{ marginTop: 14 }}>
+        <Field label="كلمة مرور جديدة (اتركها فارغة لعدم التغيير)">
+          <div style={{ position: "relative" }}>
+            <input className="input" type={show ? "text" : "password"} value={pwd} onChange={(e) => setPwd(e.target.value)} placeholder="••••••••" style={{ paddingLeft: 42 }} />
+            <button className="icon-btn" onClick={() => setShow(!show)} style={{ position: "absolute", left: 5, top: 4, width: 32, height: 32, border: "none", background: "none" }}>
+              {show ? <EyeOff size={17} /> : <Eye size={17} />}
+            </button>
+          </div>
+        </Field>
+      </div>
+      <div style={{ marginTop: 14 }}>
+        <div className="label">الصلاحية</div>
+        <div style={{ fontWeight: 700, fontSize: 14 }}>{session.roleId === "admin" ? "مدير" : "موظف"}</div>
+      </div>
+      <div style={{ display: "flex", gap: 10, marginTop: 20 }}>
+        <button className="btn btn-primary" onClick={save} disabled={saving}><Check size={16} /> {saving ? "جاري الحفظ…" : "حفظ"}</button>
+      </div>
+    </div>
+  );
 }
 
+/* ============================================================
+   الإشعارات
+   ============================================================ */
 function ToastStack({ toasts }) {
   return (
     <div className="no-print" style={{ position: "fixed", bottom: 20, insetInlineStart: 20, display: "flex", flexDirection: "column", gap: 10, zIndex: 100 }}>
-      {toasts.map((t) => (<div key={t.id} style={{ background: "var(--surface)", border: `1px solid ${t.type === "error" ? "#e5484d" : "#2e9e5b"}`, borderRadius: 12, padding: "12px 18px", boxShadow: "var(--shadow)", fontWeight: 700, fontSize: 14 }}>{t.msg}</div>))}
+      {toasts.map((t) => (<div key={t.id} style={{ background: "var(--surface)", border: "1px solid " + (t.type === "error" ? "#e5484d" : "#2e9e5b"), borderRadius: 12, padding: "12px 18px", boxShadow: "var(--shadow)", fontWeight: 700, fontSize: 14 }}>{t.msg}</div>))}
     </div>
   );
 }
