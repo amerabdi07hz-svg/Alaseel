@@ -4,6 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>نظام الأصيل للخدمات الإعلانية — سحابي</title>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <!-- ربط ملف التصميم -->
 <link rel="stylesheet" href="style.css">
 </head>
@@ -43,7 +46,7 @@
     document.getElementById('bootmsg').textContent = 'تم الاتصال. جاري تحميل النظام…';
     
     // جلب ملف البرمجة app.js
-    const response = await fetch('app.js');
+    const response = await fetch('app.js?v=' + Date.now());
     if (!response.ok) throw new Error("تعذر تحميل ملف app.js");
     const appSource = await response.text();
     

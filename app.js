@@ -115,7 +115,7 @@ const PAGES = [
 
 const DEFAULT_ROLES = [
   { id: "admin", name: "مدير", pages: ["dashboard", "employees", "customers", "suppliers", "users", "audit", "backup"], locked: true },
-  { id: "employee", name: "موظف", pages: ["dashboard", "employees", "customers", "suppliers"], locked: false },
+  { id: "employee", name: "موظف", pages: ["employees"], locked: false },
 ];
 
 const Ctx = createContext(null);
@@ -149,6 +149,14 @@ function App() {
         }];
         await DB.set("users", u);
       }
+      // ضمان وجود دور الموظف بالصلاحيات الصحيحة
+      const empIdx = r.findIndex((role) => role.id === "employee");
+      if (empIdx >= 0) {
+        r[empIdx] = { ...r[empIdx], pages: ["employees"] };
+      } else {
+        r.push({ id: "employee", name: "موظف", pages: ["employees"], locked: false });
+      }
+      await DB.set("roles", r);
       setUsers(u); setRoles(r);
       setEmployees(await DB.get("employees", []));
       setCustomers(await DB.get("customers", []));
@@ -186,10 +194,17 @@ function App() {
     [roles, session]
   );
 
+  // موظف يرى فقط ما أضافه هو، أما المدير فيرى كل شيء
+  const isAdmin = currentRole?.id === "admin";
+  const mine = useCallback(
+    (arr) => (isAdmin || !session ? arr : arr.filter((x) => x.createdBy === session.id)),
+    [isAdmin, session]
+  );
+
   const value = {
     theme, toggleTheme, session, setSession,
     users, roles, employees, customers, suppliers, audit,
-    persist, toast, log, currentRole, setToasts,
+    persist, toast, log, currentRole, isAdmin, mine, setToasts,
   };
 
   if (!loaded) {
@@ -286,7 +301,7 @@ function Shell() {
   const [page, setPage] = useState("dashboard");
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const allowed = currentRole?.pages || [];
+  const allowed = (currentRole?.pages && currentRole.pages.length > 0) ? currentRole.pages : (session?.roleId === "employee" ? ["employees"] : []);
   const visiblePages = PAGES.filter((p) => allowed.includes(p.key));
 
   useEffect(() => {
@@ -482,16 +497,17 @@ function useConfirm() {
 }
 
 function Employees() {
-  const { employees, persist, toast, log } = useApp();
+  const { employees, persist, toast, log, mine, session, users } = useApp();
   const [modal, setModal] = useState(null);
   const { confirm, node } = useConfirm();
   const [fService, setFService] = useState("");
 
-  const services = useMemo(() => [...new Set(employees.map((e) => e.service).filter(Boolean))], [employees]);
-  const rows = useMemo(() => employees.filter((e) => !fService || e.service === fService), [employees, fService]);
+  const visible = useMemo(() => mine(employees), [employees, mine]);
+  const services = useMemo(() => [...new Set(visible.map((e) => e.service).filter(Boolean))], [visible]);
+  const rows = useMemo(() => visible.filter((e) => !fService || e.service === fService), [visible, fService]);
 
   const save = (data) => {
-    if (modal.mode === "add") { persist.employees([{ ...data, id: uid(), createdAt: now() }, ...employees]); log("إضافة", "موظف", data.workplace); toast("تمت إضافة الموظف"); }
+    if (modal.mode === "add") { persist.employees([{ ...data, id: uid(), createdAt: now(), createdBy: session.id }, ...employees]); log("إضافة", "موظف", data.workplace); toast("تمت إضافة الموظف"); }
     else { persist.employees(employees.map((e) => (e.id === modal.data.id ? { ...e, ...data } : e))); log("تعديل", "موظف", data.workplace); toast("تم التعديل"); }
     setModal(null);
   };
@@ -501,6 +517,7 @@ function Employees() {
     { key: "workplace", label: "مكان العمل" }, { key: "shop", label: "اسم المحل" }, { key: "service", label: "نوع الخدمة" },
     { key: "labor", label: "تكلفة اليد العاملة", type: "num", render: (r) => money(r.labor) },
     { key: "salaryExp", label: "مصروفات", type: "num", render: (r) => money(r.salaryExp) },
+    { key: "createdBy", label: "الموظف", render: (r) => users.find((u) => u.id === r.createdBy)?.name || "—" },
     { key: "act", label: "إجراءات", noSort: true, render: (r) => (<div style={{ display: "flex", gap: 6 }}><button className="icon-btn" onClick={() => setModal({ mode: "edit", data: r })}><Pencil size={15} /></button><button className="icon-btn" onClick={() => del(r)}><Trash2 size={15} /></button></div>) },
   ];
 
@@ -520,17 +537,18 @@ function EmployeeForm({ data, onSave, onClose }) {
 }
 
 function Customers() {
-  const { customers, persist, toast, log } = useApp();
+  const { customers, persist, toast, log, mine, session } = useApp();
   const [modal, setModal] = useState(null);
   const { confirm, node } = useConfirm();
+  const visible = useMemo(() => mine(customers), [customers, mine]);
   const save = (data) => {
     const rec = { ...data, remaining: (Number(data.materials)||0) + (Number(data.invoiceValue)||0) + (Number(data.design)||0) + (Number(data.labor)||0) - (Number(data.deposit)||0) };
-    if (modal.mode === "add") { persist.customers([{ ...rec, id: uid(), createdAt: now() }, ...customers]); log("إضافة", "زبون", data.name); toast("تمت الإضافة"); }
+    if (modal.mode === "add") { persist.customers([{ ...rec, id: uid(), createdAt: now(), createdBy: session.id }, ...customers]); log("إضافة", "زبون", data.name); toast("تمت الإضافة"); }
     else { persist.customers(customers.map((c) => (c.id === modal.data.id ? { ...c, ...rec } : c))); log("تعديل", "زبون", data.name); toast("تم التعديل"); }
     setModal(null);
   };
   const columns = [{ key: "name", label: "اسم الزبون" }, { key: "workType", label: "نوع العمل" }, { key: "deposit", label: "العربون", render: (r) => money(r.deposit) }, { key: "remaining", label: "الباقي", render: (r) => <b style={{ color: r.remaining > 0 ? "#e5484d" : "#2e9e5b" }}>{money(r.remaining)}</b> }, { key: "act", label: "إجراءات", noSort: true, render: (r) => (<div style={{ display: "flex", gap: 6 }}><button className="icon-btn" onClick={() => setModal({ mode: "edit", data: r })}><Pencil size={15} /></button><button className="icon-btn" onClick={() => confirm("حذف؟", () => persist.customers(customers.filter((c) => c.id !== r.id)))}><Trash2 size={15} /></button></div>) }];
-  return (<div><SectionHead onAdd={() => setModal({ mode: "add", data: {} })} /><DataTable columns={columns} rows={customers} />{modal && <Modal title="بيانات الزبون" onClose={() => setModal(null)} wide><CustomerForm data={modal.data} onSave={save} onClose={() => setModal(null)} /></Modal>}{node}</div>);
+  return (<div><SectionHead onAdd={() => setModal({ mode: "add", data: {} })} /><DataTable columns={columns} rows={visible} />{modal && <Modal title="بيانات الزبون" onClose={() => setModal(null)} wide><CustomerForm data={modal.data} onSave={save} onClose={() => setModal(null)} /></Modal>}{node}</div>);
 }
 function CustomerForm({ data, onSave, onClose }) {
   const [f, setF] = useState({ name: "", workType: "", materials: "", invoiceValue: "", design: "", labor: "", deposit: "", invoiceNumber: "", notes: "", ...data });
@@ -539,17 +557,18 @@ function CustomerForm({ data, onSave, onClose }) {
 }
 
 function Suppliers() {
-  const { suppliers, persist, toast, log } = useApp();
+  const { suppliers, persist, toast, log, mine, session } = useApp();
   const [modal, setModal] = useState(null);
   const { confirm, node } = useConfirm();
+  const visible = useMemo(() => mine(suppliers), [suppliers, mine]);
   const save = (data) => {
     const rec = { ...data, remaining: (Number(data.invoice)||0) - (Number(data.paid)||0) };
-    if (modal.mode === "add") { persist.suppliers([{ ...rec, id: uid(), createdAt: now() }, ...suppliers]); toast("تم الإضافة"); }
+    if (modal.mode === "add") { persist.suppliers([{ ...rec, id: uid(), createdAt: now(), createdBy: session.id }, ...suppliers]); toast("تم الإضافة"); }
     else { persist.suppliers(suppliers.map((s) => (s.id === modal.data.id ? { ...s, ...rec } : s))); toast("تم التعديل"); }
     setModal(null);
   };
   const columns = [{ key: "name", label: "اسم المورد" }, { key: "goods", label: "نوع البضاعة" }, { key: "remaining", label: "المتبقي", render: (r) => <b style={{ color: r.remaining > 0 ? "#e5484d" : "#2e9e5b" }}>{money(r.remaining)}</b> }, { key: "act", label: "إجراءات", noSort: true, render: (r) => (<div style={{ display: "flex", gap: 6 }}><button className="icon-btn" onClick={() => setModal({ mode: "edit", data: r })}><Pencil size={15} /></button><button className="icon-btn" onClick={() => confirm("حذف؟", () => persist.suppliers(suppliers.filter((s) => s.id !== r.id)))}><Trash2 size={15} /></button></div>) }];
-  return (<div><SectionHead onAdd={() => setModal({ mode: "add", data: {} })} /><DataTable columns={columns} rows={suppliers} />{modal && <Modal title="المورد" onClose={() => setModal(null)}><SupplierForm data={modal.data} onSave={save} onClose={() => setModal(null)} /></Modal>}{node}</div>);
+  return (<div><SectionHead onAdd={() => setModal({ mode: "add", data: {} })} /><DataTable columns={columns} rows={visible} />{modal && <Modal title="المورد" onClose={() => setModal(null)}><SupplierForm data={modal.data} onSave={save} onClose={() => setModal(null)} /></Modal>}{node}</div>);
 }
 function SupplierForm({ data, onSave, onClose }) {
   const [f, setF] = useState({ name: "", goods: "", invoice: "", paid: "", notes: "", ...data });
@@ -558,18 +577,21 @@ function SupplierForm({ data, onSave, onClose }) {
 }
 
 function Dashboard() {
-  const { employees, customers, suppliers, theme } = useApp();
-  const totalDeposit = customers.reduce((a, c) => a + (Number(c.deposit) || 0), 0);
-  const totalRemaining = customers.reduce((a, c) => a + (Number(c.remaining) || 0), 0);
-  const totalInvoices = suppliers.reduce((a, s) => a + (Number(s.invoice) || 0), 0);
+  const { employees, customers, suppliers, theme, mine } = useApp();
+  const myEmployees = useMemo(() => mine(employees), [employees, mine]);
+  const myCustomers = useMemo(() => mine(customers), [customers, mine]);
+  const mySuppliers = useMemo(() => mine(suppliers), [suppliers, mine]);
+  const totalDeposit = myCustomers.reduce((a, c) => a + (Number(c.deposit) || 0), 0);
+  const totalRemaining = myCustomers.reduce((a, c) => a + (Number(c.remaining) || 0), 0);
+  const totalInvoices = mySuppliers.reduce((a, s) => a + (Number(s.invoice) || 0), 0);
   const barData = [{ name: "العربون", value: totalDeposit }, { name: "المتبقي", value: totalRemaining }, { name: "الفواتير", value: totalInvoices }];
   
   return (
     <div style={{ display: "grid", gap: 18 }}>
       <div className="grid-stats">
-        <div className="card" style={{ padding: 16, display: "flex", alignItems: "center", gap: 13 }}><div style={{ width: 46, height: 46, borderRadius: 12, background: "#5b74b822", color: "#5b74b8", display: "grid", placeItems: "center" }}><Users size={22} /></div><div><div style={{ fontSize: 12.5, color: "var(--muted)", fontWeight: 700 }}>عدد الموظفين</div><div className="heading" style={{ fontSize: 21, fontWeight: 800 }}>{employees.length}</div></div></div>
-        <div className="card" style={{ padding: 16, display: "flex", alignItems: "center", gap: 13 }}><div style={{ width: 46, height: 46, borderRadius: 12, background: "#2e9e5b22", color: "#2e9e5b", display: "grid", placeItems: "center" }}><UserRound size={22} /></div><div><div style={{ fontSize: 12.5, color: "var(--muted)", fontWeight: 700 }}>عدد الزبائن</div><div className="heading" style={{ fontSize: 21, fontWeight: 800 }}>{customers.length}</div></div></div>
-        <div className="card" style={{ padding: 16, display: "flex", alignItems: "center", gap: 13 }}><div style={{ width: 46, height: 46, borderRadius: 12, background: "#d9832422", color: "#d98324", display: "grid", placeItems: "center" }}><Truck size={22} /></div><div><div style={{ fontSize: 12.5, color: "var(--muted)", fontWeight: 700 }}>عدد الموردين</div><div className="heading" style={{ fontSize: 21, fontWeight: 800 }}>{suppliers.length}</div></div></div>
+        <div className="card" style={{ padding: 16, display: "flex", alignItems: "center", gap: 13 }}><div style={{ width: 46, height: 46, borderRadius: 12, background: "#5b74b822", color: "#5b74b8", display: "grid", placeItems: "center" }}><Users size={22} /></div><div><div style={{ fontSize: 12.5, color: "var(--muted)", fontWeight: 700 }}>عدد الموظفين</div><div className="heading" style={{ fontSize: 21, fontWeight: 800 }}>{myEmployees.length}</div></div></div>
+        <div className="card" style={{ padding: 16, display: "flex", alignItems: "center", gap: 13 }}><div style={{ width: 46, height: 46, borderRadius: 12, background: "#2e9e5b22", color: "#2e9e5b", display: "grid", placeItems: "center" }}><UserRound size={22} /></div><div><div style={{ fontSize: 12.5, color: "var(--muted)", fontWeight: 700 }}>عدد الزبائن</div><div className="heading" style={{ fontSize: 21, fontWeight: 800 }}>{myCustomers.length}</div></div></div>
+        <div className="card" style={{ padding: 16, display: "flex", alignItems: "center", gap: 13 }}><div style={{ width: 46, height: 46, borderRadius: 12, background: "#d9832422", color: "#d98324", display: "grid", placeItems: "center" }}><Truck size={22} /></div><div><div style={{ fontSize: 12.5, color: "var(--muted)", fontWeight: 700 }}>عدد الموردين</div><div className="heading" style={{ fontSize: 21, fontWeight: 800 }}>{mySuppliers.length}</div></div></div>
       </div>
       <div className="card" style={{ padding: 18 }}>
         <h3 className="heading" style={{ margin: "0 0 14px", fontSize: 16 }}>ملخص التكاليف والإيرادات</h3>
@@ -582,9 +604,113 @@ function Dashboard() {
 }
 
 function UsersAdmin() {
-  const { users, persist, toast } = useApp();
-  const columns = [{ key: "name", label: "الاسم" }, { key: "username", label: "اسم المستخدم" }, { key: "active", label: "الحالة", render: (r) => r.active ? "مفعّل" : "موقوف" }];
-  return <div><DataTable columns={columns} rows={users} /></div>;
+  const { users, roles, persist, toast, log, session } = useApp();
+  const [modal, setModal] = useState(null);
+  const { confirm, node } = useConfirm();
+
+  const save = (data) => {
+    const uname = (data.username || "").trim();
+    if (!data.name || !uname) return toast("الاسم واسم المستخدم مطلوبان", "error");
+    const dup = users.find((u) => u.username.trim().toLowerCase() === uname.toLowerCase() && u.id !== (modal.data && modal.data.id));
+    if (dup) return toast("اسم المستخدم مستخدم بالفعل", "error");
+    if (modal.mode === "add") {
+      if (!data.pwd) return toast("كلمة المرور مطلوبة", "error");
+      const rec = { id: uid(), name: data.name, username: uname, pwd: hashPwd(data.pwd), roleId: data.roleId || "employee", active: true, avatar: "", lastLogin: null, createdAt: now() };
+      persist.users([rec, ...users]);
+      log("إضافة", "مستخدم", uname);
+      toast("تمت إضافة المستخدم");
+    } else {
+      const updated = users.map((u) => u.id === modal.data.id
+        ? { ...u, name: data.name, username: uname, roleId: data.roleId, ...(data.pwd ? { pwd: hashPwd(data.pwd) } : {}) }
+        : u);
+      persist.users(updated);
+      log("تعديل", "مستخدم", uname);
+      toast("تم التعديل");
+    }
+    setModal(null);
+  };
+
+  const toggleActive = (row) => {
+    if (row.id === session.id) return toast("لا يمكنك إيقاف حسابك الحالي", "error");
+    persist.users(users.map((u) => (u.id === row.id ? { ...u, active: !u.active } : u)));
+    toast(row.active ? "تم إيقاف الحساب" : "تم تفعيل الحساب");
+  };
+
+  const del = (row) => {
+    if (row.id === session.id) return toast("لا يمكنك حذف حسابك الحالي", "error");
+    confirm(`حذف المستخدم «${row.name}»؟`, () => {
+      persist.users(users.filter((u) => u.id !== row.id));
+      log("حذف", "مستخدم", row.name);
+      toast("تم الحذف", "error");
+    });
+  };
+
+  const columns = [
+    { key: "name", label: "الاسم" },
+    { key: "username", label: "اسم المستخدم" },
+    { key: "roleId", label: "الصلاحية", render: (r) => roles.find((x) => x.id === r.roleId)?.name || r.roleId },
+    { key: "active", label: "الحالة", render: (r) => (
+        <span className="badge" style={{ background: r.active ? "#2e9e5b22" : "#e5484d22", color: r.active ? "#2e9e5b" : "#e5484d" }}>
+          {r.active ? "مفعّل" : "موقوف"}
+        </span>
+      ) },
+    { key: "act", label: "إجراءات", noSort: true, render: (r) => (
+        <div style={{ display: "flex", gap: 6 }}>
+          <button className="icon-btn" onClick={() => setModal({ mode: "edit", data: r })}><Pencil size={15} /></button>
+          <button className="icon-btn" onClick={() => toggleActive(r)}><Power size={15} /></button>
+          <button className="icon-btn" onClick={() => del(r)}><Trash2 size={15} /></button>
+        </div>
+      ) },
+  ];
+
+  return (
+    <div>
+      <SectionHead onAdd={() => setModal({ mode: "add", data: {} })} />
+      <DataTable columns={columns} rows={users} />
+      {modal && (
+        <Modal title={modal.mode === "add" ? "إضافة مستخدم" : "تعديل مستخدم"} onClose={() => setModal(null)}>
+          <UserForm data={modal.data} onSave={save} onClose={() => setModal(null)} />
+        </Modal>
+      )}
+      {node}
+    </div>
+  );
+}
+
+function UserForm({ data, onSave, onClose }) {
+  const [f, setF] = useState({ name: "", username: "", pwd: "", roleId: "employee", ...data });
+  const [show, setShow] = useState(false);
+  const set = (k) => (e) => setF({ ...f, [k]: e.target.value });
+  const isEdit = !!data.id;
+  return (
+    <div>
+      <Grid2>
+        <Field label="الاسم"><input className="input" value={f.name} onChange={set("name")} /></Field>
+        <Field label="اسم المستخدم"><input className="input" value={f.username} onChange={set("username")} /></Field>
+      </Grid2>
+      <div style={{ marginTop: 14 }}>
+        <Field label={isEdit ? "كلمة مرور جديدة (اتركها فارغة لعدم التغيير)" : "كلمة المرور"}>
+          <div style={{ position: "relative" }}>
+            <input className="input" type={show ? "text" : "password"} value={f.pwd} onChange={set("pwd")}
+              placeholder={isEdit ? "••••••••" : ""} style={{ paddingLeft: 42 }} />
+            <button className="icon-btn" type="button" onClick={() => setShow(!show)}
+              style={{ position: "absolute", left: 5, top: 4, width: 32, height: 32, border: "none", background: "none" }}>
+              {show ? <EyeOff size={17} /> : <Eye size={17} />}
+            </button>
+          </div>
+        </Field>
+      </div>
+      <div style={{ marginTop: 14 }}>
+        <Field label="الصلاحية">
+          <select className="select" value={f.roleId} onChange={set("roleId")}>
+            <option value="admin">مدير</option>
+            <option value="employee">موظف</option>
+          </select>
+        </Field>
+      </div>
+      <FormActions onSave={() => onSave(f)} onClose={onClose} />
+    </div>
+  );
 }
 
 function AuditLog() {
